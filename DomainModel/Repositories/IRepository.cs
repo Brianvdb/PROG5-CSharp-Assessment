@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace DomainModel.Repositories
 {
-    public interface IHotelRoomRepository : IRepository<HotelRoom>
+    public interface IRepository<T> where T : class
     {
-   
+        List<T> GetAll();
+
+        T Add(T t);
+
+        T Delete(T t);
     }
 }

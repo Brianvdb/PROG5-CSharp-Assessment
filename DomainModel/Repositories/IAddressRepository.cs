@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace DomainModel.Repositories
 {
-    public interface IHotelRoomRepository : IRepository<HotelRoom>
+    public interface IAddressRepository : IRepository<Address>
     {
-   
+
     }
 }
