@@ -28,8 +28,7 @@ namespace HotelWeb.Controllers
             this.roomPriceRepo = new EntityHotelRoomPriceRepository(db);
             this.roomRepo = new EntityHotelRoomRepository(db);
             this.invoiceRepo = new EntityInvoiceRepository(db);
-
-            
+         
         }
         //
         // GET: /Home/
