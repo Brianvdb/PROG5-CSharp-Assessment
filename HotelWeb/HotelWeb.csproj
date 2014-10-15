@@ -114,6 +114,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Repositories\EntityAddressRepository.cs" />
+    <Compile Include="Repositories\EntityBookingRepository.cs" />
+    <Compile Include="Repositories\EntityGuestRepository.cs" />
+    <Compile Include="Repositories\EntityHotelRoomPriceRepository.cs" />
+    <Compile Include="Repositories\EntityHotelRoomRepository.cs" />
+    <Compile Include="Repositories\EntityInvoiceRepository.cs" />
+    <Compile Include="Repositories\EntityRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
