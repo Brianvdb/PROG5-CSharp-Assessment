@@ -16,19 +16,19 @@ namespace HotelWeb.Repositories
             this.database = database;
         }
 
-        List<T> IRepository<T>.GetAll()
+        public List<T> GetAll()
         {
             return database.Set<T>().ToList();
         }
 
-        T IRepository<T>.Add(T t)
+        public T Add(T t)
         {
             database.Set<T>().Add(t);
             database.SaveChanges();
             return t;
         }
 
-        T IRepository<T>.Delete(T t)
+        public T Delete(T t)
         {
             database.Set<T>().Remove(t);
             database.SaveChanges();
