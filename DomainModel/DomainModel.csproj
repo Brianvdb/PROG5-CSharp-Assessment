@@ -56,7 +56,7 @@
     <Compile Include="Repositories\IAddressRepository.cs" />
     <Compile Include="Repositories\IBookingRepository.cs" />
     <Compile Include="Repositories\IGuestRepository.cs" />
-    <Compile Include="Repositories\IHotelRoomPrice.cs" />
+    <Compile Include="Repositories\IHotelRoomPriceRepository.cs" />
     <Compile Include="Repositories\IHotelRoomRepository.cs" />
     <Compile Include="Repositories\IInvoiceRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />

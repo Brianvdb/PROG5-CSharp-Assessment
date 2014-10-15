@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DomainModel.Repositories
 {
-    public interface IHotelRoomPrice : IRepository<HotelRoomPrice>
+    public interface IHotelRoomPriceRepository : IRepository<HotelRoomPrice>
     {
 
     }
