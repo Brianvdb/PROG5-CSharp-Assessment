@@ -28,7 +28,19 @@ namespace HotelWeb.Controllers
             this.roomPriceRepo = new EntityHotelRoomPriceRepository(db);
             this.roomRepo = new EntityHotelRoomRepository(db);
             this.invoiceRepo = new EntityInvoiceRepository(db);
-         
+            
+
+            HotelRoom room = new HotelRoom();
+            room.MinPrice = 20;
+            room.OpenDate = DateTime.Now;
+            room.CloseDate = DateTime.Now;
+            room.NumberOfPersons = 2;
+            room.RoomPrices = new List<HotelRoomPrice>();
+
+
+            //roomRepo.Add(room);
+            //db.HotelRooms.Add(room);
+           // db.SaveChanges();
         }
         //
         // GET: /Home/
@@ -36,6 +48,11 @@ namespace HotelWeb.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        public ActionResult Rooms()
+        {
+            return View(roomRepo.GetAll());
         }
 
     }
