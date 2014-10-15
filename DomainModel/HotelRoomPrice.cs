@@ -18,6 +18,6 @@ namespace DomainModel
 
         public double Price { get; set; }
 
-        public HotelRoom Room { get; set; }
+        public bool Yearly { get; set; }
     }
 }
