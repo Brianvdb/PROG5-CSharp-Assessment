@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DomainModel
 {
-    class Booking
+    public class Booking
     {
         [Key]
         public int BookingId { get; set; }

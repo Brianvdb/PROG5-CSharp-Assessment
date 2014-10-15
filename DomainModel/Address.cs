@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace DomainModel
 {
-    class Address
+    public class Address
     {
         [Key]
         public int AddressId { get; set;  }
-        public string Address { get; set; }
+        public string Street { get; set; }
 
         public string PostalCode { get; set; }
 
