@@ -1,0 +1,51 @@
+﻿@model IEnumerable<DomainModel.Guest>
+
+@{
+    ViewBag.Title = "Guests";
+}
+
+<h1>Klanten</h1>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            voornaam
+        </th>
+        <th>
+            achternaam
+        </th>
+        <th>
+            geboortedatum
+        </th>
+        <th>
+            geslacht
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BirthDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Gender)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.GuestId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.GuestId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.GuestId })
+        </td>
+    </tr>
+}
+
+</table>

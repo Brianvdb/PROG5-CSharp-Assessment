@@ -57,5 +57,19 @@ namespace HotelWeb.Controllers
             return View(roomRepo.GetAll());
         }
 
+        public ActionResult Guests()
+        {
+            return View(guestRepo.GetAll());
+        }
+
+        public ActionResult Contact() {
+            return View();
+        }
+
+        public ActionResult Booking()
+        {
+            return View();
+        }
+
     }
 }
