@@ -118,6 +118,16 @@ content{
         font-size: 20pt;
         font-style: oblique;
     }
+
+    table{
+        background-color:#eee;
+        border-color:$default-bordercolor;
+        tr th{
+            @extend .base-button;
+            
+            margin: 5px;
+        }
+    }
 }
 
 footer{
