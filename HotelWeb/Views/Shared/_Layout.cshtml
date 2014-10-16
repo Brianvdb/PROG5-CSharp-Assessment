@@ -3,9 +3,71 @@
 <html lang="nl-nl">
     <head>
         <title>@ViewBag.Title - Hotel</title>
+        <link href="Content/Css/std.min.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="Content/Css/slide.css" type="text/css" rel="stylesheet" media="screen">
+        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script src="~/Content/Scripts/jquery.slides.min.js"></script>
+        
     </head>
 
     <body>
-        @RenderBody()
+        <div id="center-wrap">
+            <header>
+                <div id="login">Login Personeel</div>
+                <div id="header-container">
+                    <img id="header-logo" alt="Hogwards Hotels" src="Content/Images/Crest_Hogwarts.jpg">
+                    <menu>
+                        <ul>
+                            <li>Over Hogwards</li>
+                            <li>Inschrijven</li>
+                            <li>Klanten</li>
+                            <li>Kamers</li>
+                            <li>Contact</li>
+                        </ul>
+                    </menu>
+                </div>
+                <div id="image-slide">
+
+                    <img src="~/Content/Images/slides/slide1e.jpg" alt="Ons vertrek">
+                    <img src="~/Content/Images/slides/slide2e.jpg" alt="Mistieke tafferelen">
+                    <img src="~/Content/Images/slides/slide3e.jpg" alt="Luxe diners">
+                    <img src="~/Content/Images/slides/slide4e.jpg" alt="Extreme sporten voor de kids">
+                    <img src="~/Content/Images/slides/slide5e.jpg" alt="Prachtige omgeving">
+                    
+                </div>
+                <script>
+                $(function () {
+                    $('#image-slide').slidesjs({
+                        width: 1920,
+                        height: 600,
+                        play: {
+                            active: false,
+                            auto: true,
+                            interval: 10000,
+                            swap: true
+                        },
+                        effect: {
+                            slide: {
+                                speed: 2000
+                            }
+                        },
+                        navigation: {
+                            active: false
+                        },
+                        pagination: {
+                            active: false
+                        }
+                    });
+                });
+                </script>
+
+            </header>
+            <content>
+                <h1>@ViewBag.Description</h1>
+                @RenderBody()
+                
+            </content>
+        </div>
+        <footer>Hogward Hotels Copyright @DateTime.Now.Year, @Html.ActionLink("Contact", "Contact")</footer>
     </body>
 </html>

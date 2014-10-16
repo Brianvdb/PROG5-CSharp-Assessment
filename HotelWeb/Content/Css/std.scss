@@ -1,0 +1,148 @@
+﻿@import 'reset';
+
+$default-background: white;
+$default-widget-background:black;
+$default-bordercolor: #ccc;
+$default-radius: 15px;
+$min-device-width: 1250px;
+$header-height: 30px;
+$border-weight: 3px;
+
+@mixin transition($time: 0.5s){
+    -o-transition:$time;
+    -moz-transition:$time;
+    -webkit-transition:$time;
+    transition:$time;
+}
+
+.base-button{
+    @include transition;
+    background-color: $default-widget-background;
+    color:$default-bordercolor;
+    padding:5px;
+    border: solid $border-weight;
+    text-align:center;
+}
+
+body {
+    background:$default-background;
+    display: block;
+    font-family: Calibri, Ubuntu, sans-serif;
+}
+
+header{
+    position:relative;
+
+    #header-container{
+        border-bottom: solid ($border-weight + 2) $default-widget-background;
+    }
+    #login{
+        @extend .base-button;
+        font-size: 12pt;
+        position:relative;
+        margin-left:auto;
+        margin-right: 0;
+        width: 200px;
+        border-top:0;
+        border-radius: 0 0 $default-radius $default-radius;
+    }
+
+    #login:hover, li:hover{
+        color:lighten($default-widget-background, 100%);
+        background-color:lighten($default-widget-background, 10%);
+        border-color:darken($default-bordercolor, 20%);
+    }
+
+    #header-logo{
+        width: 147px;
+        height: 156px;
+        color: gray;
+        margin-bottom: 4px;
+    }
+
+    menu{
+        float:right;
+        $menu-height: 30px;
+        ul{
+           margin-top: 156px - $menu-height - $default-radius;
+        }
+
+        li{
+            @extend .base-button;
+            padding-top:15px;
+            position:relative;
+            float:left;
+            border-left: 0;
+            border-right: solid 1px;
+            border-bottom:solid 4px lighten($default-widget-background, 10%);
+            display:block;
+            width:150px;
+            height:$menu-height;
+        }
+
+        li:first-child{
+            border-radius:$default-radius 0 0 0;
+        }
+
+        li:last-child{
+            border-radius:0 $default-radius 0 0;
+        }
+    } 
+}
+
+content{
+    h1{
+        font-size: 20pt;
+        font-style: oblique;
+    }
+}
+
+footer{
+    @extend .base-button;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    height: $header-height;
+}
+
+#center-wrap{
+    padding: 0 10% 0 10%;
+    z-index:1;
+    background-color:$default-background;
+    margin-bottom:$header-height + 20px;
+    position:relative;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+@media only screen 
+and (max-width : $min-device-width) {
+    #center-wrap{
+        width:100%;
+    }
+
+    header{
+        #login{
+            width:100%;
+            border-radius: 0;
+        }
+
+        #header-logo{
+            width: (147px / 2);
+            height: (156px / 2);
+        }
+
+        menu{
+            width:100%;
+
+            ul{
+                margin-top:0;
+            }
+            li{
+                width:100%;
+                border-radius:0 !important;
+            }
+        }
+    }
+}
+

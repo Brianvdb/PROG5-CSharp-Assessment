@@ -132,6 +132,73 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Content\Css\reset.css">
+      <DependentUpon>reset.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Css\reset.min.css">
+      <DependentUpon>reset.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Css\slide.css" />
+    <Content Include="Content\Css\std.css">
+      <DependentUpon>std.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Css\std.min.css">
+      <DependentUpon>std.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Images\Crest_Hogwarts.jpg" />
+    <Content Include="Content\Images\slides\slide1e.jpg" />
+    <Content Include="Content\Images\slides\slide2e.jpg" />
+    <Content Include="Content\Images\slides\slide3e.jpg" />
+    <Content Include="Content\Images\slides\slide4e.jpg" />
+    <Content Include="Content\Images\slides\slide5e.jpg" />
+    <Content Include="Content\Scripts\jquery.slides.min.js" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\basic-fade\img\example-slide-1.jpg" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\basic-fade\img\example-slide-2.jpg" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\basic-fade\img\example-slide-3.jpg" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\basic-fade\img\example-slide-4.jpg" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\basic-fade\index.html" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\basic-fade\js\jquery.slides.min.js" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\basic-slide\img\example-slide-1.jpg" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\basic-slide\img\example-slide-2.jpg" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\basic-slide\img\example-slide-3.jpg" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\basic-slide\img\example-slide-4.jpg" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\basic-slide\index.html" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\basic-slide\js\jquery.slides.min.js" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\callbacks\img\example-slide-1.jpg" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\callbacks\img\example-slide-2.jpg" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\callbacks\img\example-slide-3.jpg" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\callbacks\img\example-slide-4.jpg" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\callbacks\index.html" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\callbacks\js\jquery.slides.min.js" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\multiple\css\example.css" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\multiple\css\font-awesome.min.css" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\multiple\font\fontawesome-webfont.svg" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\multiple\img\example-slide-1.jpg" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\multiple\img\example-slide-2.jpg" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\multiple\img\example-slide-3.jpg" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\multiple\img\example-slide-4.jpg" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\multiple\img\pagination.png" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\multiple\index.html" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\multiple\js\jquery.slides.min.js" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\playing\img\btns-next-prev.png" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\playing\img\example-slide-1.jpg" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\playing\img\example-slide-2.jpg" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\playing\img\example-slide-3.jpg" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\playing\img\example-slide-4.jpg" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\playing\img\pagination.png" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\playing\index.html" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\standard\css\example.css" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\standard\css\font-awesome.min.css" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\standard\font\fontawesome-webfont.svg" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\standard\img\example-slide-1.jpg" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\standard\img\example-slide-2.jpg" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\standard\img\example-slide-3.jpg" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\standard\img\example-slide-4.jpg" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\standard\img\pagination.png" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\standard\index.html" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\standard\js\jquery.slides.min.js" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\source\jquery.slides.js" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\source\jquery.slides.min.js" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -144,9 +211,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Css\" />
-    <Folder Include="Content\Images\" />
-    <Folder Include="Content\Uploads\" />
+    <Folder Include="Content\Scripts\Slides-SlidesJS-3\examples\playing\css\" />
+    <Folder Include="Content\Scripts\Slides-SlidesJS-3\examples\playing\js\" />
+    <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -165,6 +232,40 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_Layout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Css\std.scss" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Css\std.css.map">
+      <DependentUpon>std.css</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Css\reset.scss" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Css\reset.css.map">
+      <DependentUpon>reset.css</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\.gitignore" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\multiple\font\fontawesome-webfont.eot" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\multiple\font\fontawesome-webfont.ttf" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\multiple\font\fontawesome-webfont.woff" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\multiple\font\FontAwesome.otf" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\standard\font\fontawesome-webfont.eot" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\standard\font\fontawesome-webfont.ttf" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\standard\font\fontawesome-webfont.woff" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\examples\standard\font\FontAwesome.otf" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\README.textile" />
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\source\jquery.slides.coffee" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Scripts\Slides-SlidesJS-3\source\jquery.slides.min.js.map">
+      <DependentUpon>jquery.slides.min.js</DependentUpon>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
