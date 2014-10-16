@@ -75,3 +75,32 @@
 }
 
 </table>
+
+<h1>Kamer toevoegen</h1>
+
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <legend>Nieuwe kamer</legend>
+        <div class="editor-label">
+            @Html.Label("Aantal personen: ")
+        </div>
+        <div class="editor-field">
+            <select id="personen" name="personen">
+                <option value="2">2 persoons</option>
+                <option value="3">3 persoons</option>
+                <option value="5">5 persoons</option>
+            </select>
+        </div>
+        <div class="editor-label">
+            @Html.Label("Minimumprijs: ")
+        </div>
+        <div class="editor-field">
+            @Html.TextBox("minprice", null, new { type = "number", step = "0.01" })
+        </div>
+        <p>
+            <input type="submit" value="Toevoegen" />
+        </p>
+</fieldset>
+}
+

@@ -71,5 +71,23 @@ namespace HotelWeb.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Rooms(FormCollection form)
+        {
+            System.Globalization.NumberFormatInfo nf = new System.Globalization.NumberFormatInfo() { NumberGroupSeparator = "."};
+            float price = float.Parse(form["minprice"], nf);
+            HotelRoom room = new HotelRoom()
+            {
+                NumberOfPersons = Int32.Parse(form["personen"]),
+                MinPrice = price,
+                OpenDate = DateTime.Now,
+                CloseDate = DateTime.Now.AddDays(-1),
+                Bookings = new List<Booking>(),
+                RoomPrices = new List<HotelRoomPrice>()
+            };
+            roomRepo.Add(room);
+            return View(roomRepo.GetAll());
+        }
+
     }
 }
