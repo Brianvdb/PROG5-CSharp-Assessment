@@ -108,9 +108,17 @@ content {
     font-style: oblique; }
   content table {
     background-color: #eee;
-    border-color: #ccc; }
+    border: solid 3px #ccc; }
     content table tr th {
-      margin: 5px; }
+      border-right-width: 1px;
+      border-left-width: 1px;
+      padding: 5px 10px 5px 10px; }
+    content table tr td {
+      border: solid 1px #ccc;
+      background-color: none;
+      padding: 5px; }
+    content table tr:nth-child(odd) {
+      background-color: #ccc; }
 
 footer {
   border-width: 3px 0 0 0;

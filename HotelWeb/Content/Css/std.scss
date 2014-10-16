@@ -121,11 +121,24 @@ content{
 
     table{
         background-color:#eee;
-        border-color:$default-bordercolor;
-        tr th{
-            @extend .base-button;
-            
-            margin: 5px;
+        border: solid $border-weight $default-bordercolor;
+        tr{
+            th{
+                @extend .base-button;
+                border-right-width:1px;
+                border-left-width:1px;
+                padding: 5px 10px 5px 10px;
+            }
+
+            td{
+                border: solid 1px $default-bordercolor;
+                background-color: none;
+                padding: 5px;
+            }
+        }
+
+        tr:nth-child(odd){
+            background-color: $default-bordercolor;
         }
     }
 }
