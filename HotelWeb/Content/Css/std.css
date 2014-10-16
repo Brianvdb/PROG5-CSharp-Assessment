@@ -46,6 +46,10 @@ body {
   display: block;
   font-family: Calibri, Ubuntu, sans-serif; }
 
+a {
+  color: #ccc;
+  text-decoration: none; }
+
 header {
   position: relative; }
   header #header-container {
@@ -107,7 +111,8 @@ footer {
 
 @media only screen and (max-width: 1250px) {
   #center-wrap {
-    width: 100%; }
+    width: 100%;
+    padding: 0; }
   header #login {
     width: 100%;
     border-radius: 0; }

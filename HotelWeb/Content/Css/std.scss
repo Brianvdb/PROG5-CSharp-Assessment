@@ -30,6 +30,11 @@ body {
     font-family: Calibri, Ubuntu, sans-serif;
 }
 
+a{
+    color:$default-bordercolor;
+    text-decoration:none;
+}
+
 header{
     position:relative;
 
@@ -119,6 +124,7 @@ footer{
 and (max-width : $min-device-width) {
     #center-wrap{
         width:100%;
+        padding: 0;
     }
 
     header{
