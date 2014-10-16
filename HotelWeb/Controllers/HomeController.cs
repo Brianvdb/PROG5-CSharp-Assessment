@@ -37,6 +37,8 @@ namespace HotelWeb.Controllers
             room.NumberOfPersons = 2;
             room.RoomPrices = new List<HotelRoomPrice>();
 
+            //roomRepo.GetAll();
+
 
             //roomRepo.Add(room);
             //db.HotelRooms.Add(room);

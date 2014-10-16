@@ -4,7 +4,7 @@
     ViewBag.Title = "Rooms";
 }
 
-<h2>Rooms</h2>
+<h2>Beheer Kamers</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -12,25 +12,51 @@
 <table>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.NumberOfPersons)
+            naam
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MinPrice)
+            aantal personen
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.OpenDate)
+            kamerstatus
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CloseDate)
+            minimumprijs
         </th>
+        <th>
+            openingsdatum
+        </th>
+        <th>
+            sluitdatum
+        </th>
+
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
+            Kamer @Html.DisplayFor(modelItem => item.Id)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.NumberOfPersons)
         </td>
+        <td>
+            @if (item.Bookings == null)
+            {
+                @Html.Raw("Leeg")
+            }
+            else
+            {
+                for (int i = 0; i < item.Bookings.Count; i++)
+                {
+                    if(item.Bookings.ElementAt(i).StartDate > DateTime.Now && item.Bookings.ElementAt(i).EndDate < DateTime.Now) {
+                        @Html.Raw("Bezet")
+                    }
+                }
+            }
+        </td>
+
         <td>
             @Html.DisplayFor(modelItem => item.MinPrice)
         </td>

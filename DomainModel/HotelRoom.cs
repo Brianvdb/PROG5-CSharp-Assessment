@@ -18,6 +18,8 @@ namespace DomainModel
 
         public ICollection<HotelRoomPrice> RoomPrices { get; set; }
 
+        public ICollection<Booking> Bookings { get; set; }
+
         public DateTime OpenDate { get; set; }
 
         public DateTime CloseDate { get; set; }
