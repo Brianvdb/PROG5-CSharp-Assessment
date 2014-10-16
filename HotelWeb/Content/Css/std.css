@@ -85,16 +85,30 @@ header {
       display: block;
       width: 150px;
       height: 30px; }
+    header menu a {
+      display: block;
+      width: 100%;
+      height: 100%; }
     header menu li:first-child {
       border-radius: 15px 0 0 0; }
     header menu li:last-child {
       border-radius: 0 15px 0 0; }
+  header #slides {
+    display: none; }
+  header #image-slide {
+    background-color: black;
+    float: none;
+    width: 100%; }
 
-content h1 {
-  font-size: 20pt;
-  font-style: oblique; }
+content {
+  padding-top: 20px;
+  display: block; }
+  content h1 {
+    font-size: 20pt;
+    font-style: oblique; }
 
 footer {
+  border-width: 3px 0 0 0;
   width: 100%;
   position: fixed;
   bottom: 0;
