@@ -56,7 +56,135 @@ namespace HotelWeb.Controllers
         }
 
         public ActionResult EditRoomPrice(int id, int priceId) {
-            return Content(id + " : " + priceId);
+            ViewBag.RoomId = id;
+            return View(roomPriceRepo.Get(priceId));
+        }
+
+        [HttpPost]
+        public ActionResult EditRoomPrice(FormCollection form)
+        {
+            int roomId = Int32.Parse(form["RoomId"]);
+            int roomPriceId = Int32.Parse(form["HotelRoomPriceId"]);
+
+            ViewBag.RoomId = roomId;
+
+            // CHECK OF ROOM EN ROOMPRICE BESTAAT EN CHECK DE RELATIE
+
+            HotelRoomPrice price = roomPriceRepo.Get(roomPriceId);
+            if (price == null)
+            {
+                ViewBag.Error = "De opgegeven prijstarief bestaat niet meer.";
+                return View();
+            }
+            HotelRoom room = roomRepo.Get(roomId);
+            if (room == null)
+            {
+                ViewBag.Error = "De opgegeven hotelkamer bestaat niet meer.";
+                return View();
+            }
+
+            if (!room.RoomPrices.Contains(price))
+            {
+                ViewBag.Error = "Het prijstarief is geen van de opgegeven hotelkamer.";
+                return View();
+            }
+
+            // CHECK VALID START DATE
+
+            DateTime start = DateTime.Today;
+            bool startDateSet = false;
+            if (form["startdate"] == null || form["startdate"].Length == 0)
+            {
+            }
+            else if (!DateTime.TryParseExact(form["startdate"], "yyyy-MM-dd", CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out start))
+            {
+                ViewBag.Error = "Startdatum is niet valide.";
+                return View(price);
+            }
+            else if(start.Date != price.StartDate.Date)
+            {
+                startDateSet = true;
+            }
+
+            // CHECK VALID END DATE
+
+            DateTime end = DateTime.Today;
+            bool endDateSet = false;
+            if (form["enddate"] == null || form["enddate"].Length == 0)
+            {
+            }
+            else if (!DateTime.TryParseExact(form["enddate"], "yyyy-MM-dd", CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out end))
+            {
+                ViewBag.Error = "Einddatum is niet valide";
+                return View(price);
+            }
+            else if (end.Date != price.EndDate.Date)
+            {
+                endDateSet = true;
+            }
+
+
+            // CHECK BOTH DATES
+
+            DateTime s = price.StartDate;
+            DateTime e = price.EndDate;
+            if (startDateSet)
+            {
+                s = start;
+            }
+            if (endDateSet)
+            {
+                e = end;
+            }
+
+            if (s > e)
+            {
+                ViewBag.Error = "Startdatum is na de einddatum.";
+                return View(price);
+            }
+
+            if (startDateSet && s < DateTime.Today)
+            {
+                ViewBag.Error = "Startdatum is in het verleden.";
+                return View(price);
+            }
+
+            // CHECK CONFLICTS
+
+            if (room.RoomPrices != null)
+            {
+                foreach (HotelRoomPrice p in room.RoomPrices)
+                {
+                    if (p == price)
+                    {
+                        continue;
+                    }
+                    if (p.StartDate < end && start < p.EndDate)
+                    {
+                        ViewBag.Error = "De start en eind periode overlapt een ander prijstarief.";
+                        return View(price);
+                    }
+                }
+            }
+
+            // CHECK PRICE
+
+            double priceValue = double.Parse(form["price"].Replace(',', '.'), System.Globalization.CultureInfo.InvariantCulture);
+
+            if (priceValue < 0)
+            {
+                ViewBag.Error = "De prijs mag niet lager dan 0 zijn.";
+                return View(price);
+            }
+
+            price.StartDate = s;
+            price.EndDate = e;
+            price.Price = priceValue;
+
+            roomPriceRepo.UpdateDatabase();
+
+            ViewBag.Success = "De wijzigingen zijn successvol doorgevoerd.";
+            return View(price);
         }
 
         public ActionResult EditRoom(int id)
@@ -109,10 +237,17 @@ namespace HotelWeb.Controllers
             {
                 return View(room);
             }
-
+            float price = 0;
             // CHECK PRICE
+            if (form["minprice"] == null || form["minprice"] == "")
+            {
+                price = room.MinPrice;
+            }
+            else
+            {
+                price = float.Parse(form["minprice"].Replace(',', '.'), System.Globalization.CultureInfo.InvariantCulture);
+            }
 
-            float price = float.Parse(form["minprice"].Replace(',', '.'), System.Globalization.CultureInfo.InvariantCulture);
 
             if (price < 0)
             {
@@ -218,7 +353,16 @@ namespace HotelWeb.Controllers
         [HttpPost]
         public ActionResult Rooms(FormCollection form)
         {
+            if (form["minprice"] == null || form["minprice"] == "") {
+                ViewBag.Error = "U moet een prijs opgeven";
+                return View(roomRepo.GetAll());
+            }
             float price = float.Parse(form["minprice"].Replace(',', '.'), System.Globalization.CultureInfo.InvariantCulture);
+            if (price < 0)
+            {
+                ViewBag.Error = "Prijs mag niet lager dan 0 zijn";
+                return View(roomRepo.GetAll());
+            }
             HotelRoom room = new HotelRoom()
             {
                 NumberOfPersons = Int32.Parse(form["personen"]),
