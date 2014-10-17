@@ -1,0 +1,62 @@
+﻿@model DomainModel.HotelRoomPrice
+
+@{
+    ViewBag.Title = "Prijs tarief aanpassen";
+}
+
+<h1>Prijstarief wijzigen</h1>
+
+@if (Model != null)
+{
+    using (Html.BeginForm())
+    {
+
+        <fieldset>
+            <legend>Tarief kamer @ViewBag.RoomId</legend>
+
+            @{
+                int i = ViewBag.RoomId;
+                @Html.Hidden("RoomId", i);
+            }
+
+            @Html.HiddenFor(model => model.HotelRoomPriceId)
+
+            <div class="editor-label">
+                @Html.Label("Begindatum")
+            </div>
+            <div class="editor-field">
+                @Html.TextBox("startdate", Model.StartDate.ToString("yyyy-MM-dd"), new { type = "date" })
+            </div>
+
+            <div class="editor-label">
+                @Html.Label("Einddatum")
+            </div>
+            <div class="editor-field">
+                @Html.TextBox("enddate", Model.EndDate.ToString("yyyy-MM-dd"), new { type = "date" })
+            </div>
+
+            <div class="editor-label">
+                @Html.Label("Prijs")
+            </div>
+            <div class="editor-field">
+                @Html.TextBox("price", Model.Price.ToString().Replace(',', '.'), new { type = "number", step = "0.01" })
+            </div>
+
+            <p>
+                <input type="submit" value="Opslaan" />
+            </p>
+        </fieldset>
+    }
+}
+else
+{
+    <p>Het opgegeven prijstarief bestaat niet.</p>
+}
+
+<div>
+    @if (ViewBag.RoomId != null)
+    {
+        @Html.ActionLink("Terug naar prijstarief beheren", "RoomPrices", new { id = ViewBag.RoomId })
+    }
+</div>
+

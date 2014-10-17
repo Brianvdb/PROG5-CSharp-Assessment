@@ -4,24 +4,25 @@
     ViewBag.Title = "RoomPrices";
 }
 
-<h1>Prijstarieven Kamer @Model.Id</h1>
-
 @if (Model == null)
 {
     <p>De opgegeven kamer bestaat niet</p>
 }
 else if (Model.RoomPrices == null || Model.RoomPrices.Count == 0)
 {
+    <h1>Prijstarieven Kamer @Model.Id</h1>
     <p>Er zijn geen aangepaste prijstarieven voor deze kamer.</p>
     <p>De minimumprijs voor deze kamer is &euro;@Model.MinPrice .</p>
 }
 else
 {
+    <h1>Prijstarieven Kamer @Model.Id</h1>
     <table>
         <tr>
             <th>prijs</th>
             <th>startdatum</th>
             <th>einddatum</th>
+            <th>beheer</th>
         </tr>
 
         @foreach (var Price in Model.RoomPrices)
@@ -36,7 +37,12 @@ else
                 <td>
                     @Html.DisplayFor(modelItem => Price.EndDate)
                 </td>
+                <td>
+                    @Html.ActionLink("Bewerken", "EditRoomPrice", new { id = Model.Id, priceId = Price.HotelRoomPriceId }) |
+                    @Html.ActionLink("Verwijderen", "DeleteRoomPrice", new { id = Model.Id, priceId = Price.HotelRoomPriceId })
+                </td>
             </tr>
         }
     </table>
 }
+@Html.ActionLink("Terug naar kamerbeheer", "Rooms")
