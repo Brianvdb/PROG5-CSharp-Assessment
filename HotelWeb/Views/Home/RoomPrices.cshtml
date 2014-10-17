@@ -22,6 +22,7 @@ else
             <th>prijs</th>
             <th>startdatum</th>
             <th>einddatum</th>
+            <th>beheer</th>
         </tr>
 
         @foreach (var Price in Model.RoomPrices)
@@ -35,6 +36,10 @@ else
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => Price.EndDate)
+                </td>
+                <td>
+                    @Html.ActionLink("Bewerken", "EditRoomPrice", new { id = Model.Id, priceId = Price.HotelRoomPriceId }) |
+                    @Html.ActionLink("Verwijderen", "DeleteRoomPrice", new { id = Model.Id, priceId = Price.HotelRoomPriceId })
                 </td>
             </tr>
         }

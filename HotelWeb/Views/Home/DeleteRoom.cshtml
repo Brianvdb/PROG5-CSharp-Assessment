@@ -36,10 +36,10 @@ else if (ViewBag.Error != null)
         </div>
         <div class="editor-field">        </div>
         @using (Html.BeginForm()) {
-        @Html.HiddenFor(modelItem => Model.Id)
-        <div class="editor-label">
-            <input type="submit" value="Verwijderen" />
-        </div>
+            @Html.HiddenFor(modelItem => Model.Id)
+            <div class="editor-label">
+                <input type="submit" value="Verwijderen" />
+            </div>
         }
     </fieldset>
 }

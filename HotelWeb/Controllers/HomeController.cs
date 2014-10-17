@@ -55,6 +55,10 @@ namespace HotelWeb.Controllers
             return View();
         }
 
+        public ActionResult EditRoomPrice(int id, int priceId) {
+            return Content(id + " : " + priceId);
+        }
+
         public ActionResult EditRoom(int id)
         {
             return View(roomRepo.Get(id));
