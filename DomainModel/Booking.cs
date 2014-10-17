@@ -12,7 +12,7 @@ namespace DomainModel
         [Key]
         public int BookingId { get; set; }
 
-        public ICollection<Guest> Guests { get; set; }
+        public virtual ICollection<Guest> Guests { get; set; }
 
         public HotelRoom HotelRoom { get; set; }
 

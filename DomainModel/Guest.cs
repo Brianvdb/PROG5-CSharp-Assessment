@@ -18,7 +18,7 @@ namespace DomainModel
 
         public int Gender { get; set; }
 
-        public ICollection<Booking> Bookings { get; set; }
+        public virtual ICollection<Booking> Bookings { get; set; }
 
 
     }

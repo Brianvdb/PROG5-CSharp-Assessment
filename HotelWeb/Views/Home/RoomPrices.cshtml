@@ -1,0 +1,42 @@
+﻿@model DomainModel.HotelRoom
+
+@{
+    ViewBag.Title = "RoomPrices";
+}
+
+<h1>Prijstarieven Kamer @Model.Id</h1>
+
+@if (Model == null)
+{
+    <p>De opgegeven kamer bestaat niet</p>
+}
+else if (Model.RoomPrices == null || Model.RoomPrices.Count == 0)
+{
+    <p>Er zijn geen aangepaste prijstarieven voor deze kamer.</p>
+    <p>De minimumprijs voor deze kamer is &euro;@Model.MinPrice .</p>
+}
+else
+{
+    <table>
+        <tr>
+            <th>prijs</th>
+            <th>startdatum</th>
+            <th>einddatum</th>
+        </tr>
+
+        @foreach (var Price in Model.RoomPrices)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => Price.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Price.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Price.EndDate)
+                </td>
+            </tr>
+        }
+    </table>
+}

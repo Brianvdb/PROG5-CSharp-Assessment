@@ -16,9 +16,9 @@ namespace DomainModel
 
         public float MinPrice { get; set; }
 
-        public ICollection<HotelRoomPrice> RoomPrices { get; set; }
+        public virtual ICollection<HotelRoomPrice> RoomPrices { get; set; }
 
-        public ICollection<Booking> Bookings { get; set; }
+        public virtual ICollection<Booking> Bookings { get; set; }
 
         public DateTime OpenDate { get; set; }
 

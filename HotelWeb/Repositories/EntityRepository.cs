@@ -16,6 +16,11 @@ namespace HotelWeb.Repositories
             this.database = database;
         }
 
+        public T Get(int id)
+        {
+            return database.Set<T>().Find(id);
+        }
+
         public List<T> GetAll()
         {
             return database.Set<T>().ToList();
@@ -33,6 +38,11 @@ namespace HotelWeb.Repositories
             database.Set<T>().Remove(t);
             database.SaveChanges();
             return t;
+        }
+
+        public void UpdateDatabase()
+        {
+            database.SaveChanges();
         }
 
     }

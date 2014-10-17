@@ -6,9 +6,17 @@
 
 <h1>Beheer Kamers</h1>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<h2>Hotelkamers</h2>
+
+@if (ViewBag.Success != null)
+{
+    <div class="success">@ViewBag.Success</div>
+}
+else if (ViewBag.Error != null)
+{
+    <div class="error">@ViewBag.Error</div>
+}
+
 <table>
     <tr>
         <th>
@@ -30,7 +38,13 @@
             sluitdatum
         </th>
         <th>
+            prijstarieven
+        </th>
+        <th>
             beheer
+        </th>
+        <th>
+
         </th>
     </tr>
 
@@ -68,22 +82,37 @@
             @Html.DisplayFor(modelItem => item.CloseDate)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Bekijken", "RoomPrices", new { id = item.Id })
+        </td>
+        <td>
+            @Html.ActionLink("Bewerken", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Verwijderen", "Delete", new { id=item.Id })
+        </td>
+        <td>
+            @if (item.RoomPrices != null)
+            {
+                @Html.Raw(item.RoomPrices.Count)
+            }
+            else
+            {
+                @Html.Raw("niks");
+            }
         </td>
     </tr>
 }
 
 </table>
 
-<h1>Kamer toevoegen</h1>
+<h2>Prijstarieven </h2>
+
+<h2>Kamer toevoegen</h2>
 
 @using (Html.BeginForm())
 {
     <fieldset>
         <legend>Nieuwe kamer</legend>
         <div class="editor-label">
-            @Html.Label("Aantal personen: ")
+            @Html.Label("Aantal personen")
         </div>
         <div class="editor-field">
             <select id="personen" name="personen">
@@ -93,7 +122,7 @@
             </select>
         </div>
         <div class="editor-label">
-            @Html.Label("Minimumprijs: ")
+            @Html.Label("Minimumprijs")
         </div>
         <div class="editor-field">
             @Html.TextBox("minprice", null, new { type = "number", step = "0.01" })
@@ -102,5 +131,49 @@
             <input type="submit" value="Toevoegen" />
         </p>
 </fieldset>
+}
+
+<h2>Prijskamerklasse toevoegen</h2>
+@using (Html.BeginForm("AddRoomPrice", "Home"))
+{
+    <fieldset>
+        <legend>Nieuwe prijskamerklasse aanmaken</legend>
+        <div class="editor-label">
+            @Html.Label("Kamer")
+        </div>
+        <div class="editor-field">
+            @{
+                List<SelectListItem> listItems = new List<SelectListItem>();
+                foreach (var item in Model)
+                {
+                    listItems.Add(new SelectListItem { Text = "Kamer" + item.Id, Value = item.Id + "" });
+                }
+    
+                @Html.DropDownList("room", new SelectList(listItems, "Value", "Text"))
+            }
+        </div>
+        <div class="editor-label">
+            @Html.Label("Begindatum")
+        </div>
+        <div class="editor-field">
+            @Html.TextBox("startdate", null, new { type = "date" })
+        </div>
+        <div class="editor-label">
+            @Html.Label("Einddatum")
+        </div>
+        <div class="editor-field">
+            @Html.TextBox("enddate", null, new { type = "date" })
+        </div>
+        <div class="editor-label">
+            @Html.Label("Minimumprijs")
+        </div>
+        <div class="editor-field">
+            @Html.TextBox("price", null, new { type = "number", step = "0.01" })
+        </div>
+        <p>
+            <input type="submit" value="Toevoegen" />
+        </p>
+    </fieldset>
+    
 }
 
