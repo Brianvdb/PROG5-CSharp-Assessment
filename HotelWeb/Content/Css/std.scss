@@ -129,6 +129,13 @@ content{
         background-color:#eee;
         border: solid $border-weight $default-bordercolor;
         tr{
+            a{
+                color:black;
+                font-weight:bold;
+            }
+            a:hover{
+                text-decoration:underline;
+            }
             th{
                 @extend .base-button;
                 border-right-width:1px;
@@ -182,6 +189,25 @@ footer{
     position:relative;
     margin-left:auto;
     margin-right:auto;
+}
+
+.infobox{
+    text-align:center;
+    color:white;
+    font-weight: bold;
+    display:block;
+    position:relative;
+    width: 100%;
+}
+
+.success{
+    @extend .infobox;
+    background-color: greenyellow;
+}
+
+.error{
+    @extend .infobox;
+    background-color:red;
 }
 
 @media only screen 

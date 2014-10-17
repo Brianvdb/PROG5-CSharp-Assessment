@@ -113,6 +113,11 @@ content {
   content table {
     background-color: #eee;
     border: solid 3px #ccc; }
+    content table tr a {
+      color: black;
+      font-weight: bold; }
+    content table tr a:hover {
+      text-decoration: underline; }
     content table tr th {
       border-right-width: 1px;
       border-left-width: 1px;
@@ -147,6 +152,20 @@ footer {
   position: relative;
   margin-left: auto;
   margin-right: auto; }
+
+.infobox, .success, .error {
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  display: block;
+  position: relative;
+  width: 100%; }
+
+.success {
+  background-color: greenyellow; }
+
+.error {
+  background-color: red; }
 
 @media only screen and (max-width: 1250px) {
   #center-wrap {

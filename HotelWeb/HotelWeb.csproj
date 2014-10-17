@@ -132,13 +132,18 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Content\Css\booking.css">
+      <DependentUpon>booking.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Css\booking.min.css">
+      <DependentUpon>booking.css</DependentUpon>
+    </Content>
     <Content Include="Content\Css\reset.css">
       <DependentUpon>reset.scss</DependentUpon>
     </Content>
     <Content Include="Content\Css\reset.min.css">
       <DependentUpon>reset.css</DependentUpon>
     </Content>
-    <Content Include="Content\Css\slide.css" />
     <Content Include="Content\Css\std.css">
       <DependentUpon>std.scss</DependentUpon>
     </Content>
@@ -225,6 +230,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\DeleteRoom.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Css\booking.scss" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Css\booking.css.map">
+      <DependentUpon>booking.css</DependentUpon>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
