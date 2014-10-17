@@ -114,7 +114,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\BookController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JSONHelper.cs" />
+    <Compile Include="Controllers\Person.cs" />
     <Compile Include="Repositories\EntityAddressRepository.cs" />
     <Compile Include="Repositories\EntityBookingRepository.cs" />
     <Compile Include="Repositories\EntityGuestRepository.cs" />
