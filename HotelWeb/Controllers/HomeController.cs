@@ -67,6 +67,44 @@ namespace HotelWeb.Controllers
         }
 
         [HttpPost]
+        public ActionResult DeleteRoomPrice(FormCollection form)
+        {
+            int roomId = Int32.Parse(form["RoomId"]);
+            int roomPriceId = Int32.Parse(form["HotelRoomPriceId"]);
+
+            ViewBag.RoomId = roomId;
+
+            // CHECK OF ROOM EN ROOMPRICE BESTAAT EN CHECK DE RELATIE
+
+            HotelRoomPrice price = roomPriceRepo.Get(roomPriceId);
+            if (price == null)
+            {
+                ViewBag.Error = "Het opgegeven prijstarief bestaat niet meer.";
+                return View();
+            }
+            HotelRoom room = roomRepo.Get(roomId);
+            if (room == null)
+            {
+                ViewBag.Error = "Het opgegeven hotelkamer bestaat niet meer.";
+                return View();
+            }
+
+            if (!room.RoomPrices.Contains(price))
+            {
+                ViewBag.Error = "Het prijstarief is geen van de opgegeven hotelkamer.";
+                return View();
+            }
+
+            // NU VERWIJDEREN
+            room.RoomPrices.Remove(price);
+
+            roomPriceRepo.Delete(price);
+
+            ViewBag.Success = "Het prijstarief is succesvol verwijderd.";
+            return View();
+        }
+
+        [HttpPost]
         public ActionResult EditRoomPrice(FormCollection form)
         {
             int roomId = Int32.Parse(form["RoomId"]);
@@ -79,13 +117,13 @@ namespace HotelWeb.Controllers
             HotelRoomPrice price = roomPriceRepo.Get(roomPriceId);
             if (price == null)
             {
-                ViewBag.Error = "De opgegeven prijstarief bestaat niet meer.";
+                ViewBag.Error = "Het opgegeven prijstarief bestaat niet meer.";
                 return View();
             }
             HotelRoom room = roomRepo.Get(roomId);
             if (room == null)
             {
-                ViewBag.Error = "De opgegeven hotelkamer bestaat niet meer.";
+                ViewBag.Error = "Het opgegeven hotelkamer bestaat niet meer.";
                 return View();
             }
 
@@ -274,7 +312,7 @@ namespace HotelWeb.Controllers
 
             // CHECK OPEN DATE
 
-            DateTime start = DateTime.Now;
+            DateTime start = DateTime.Today;
             bool startDate = false;
             if (form["startdate"] == null || form["startdate"].Length == 0)
             {
@@ -298,7 +336,7 @@ namespace HotelWeb.Controllers
 
             // CHECK END DATE
 
-            DateTime close = DateTime.Now;
+            DateTime close = DateTime.Today;
             bool closeDate = false;
             if (form["closedate"] == null || form["closedate"].Length == 0)
             {
@@ -373,8 +411,8 @@ namespace HotelWeb.Controllers
             {
                 NumberOfPersons = Int32.Parse(form["personen"]),
                 MinPrice = price,
-                OpenDate = DateTime.Now,
-                CloseDate = DateTime.Now.AddDays(-1),
+                OpenDate = DateTime.Today,
+                CloseDate = DateTime.Today.AddDays(-1),
                 Bookings = new List<Booking>(),
                 RoomPrices = new List<HotelRoomPrice>()
             };
@@ -430,7 +468,7 @@ namespace HotelWeb.Controllers
                 return View("Rooms", roomRepo.GetAll());
             }
 
-            if (start < DateTime.Now)
+            if (start < DateTime.Today)
             {
                 ViewBag.Error = "Startdatum is in het verleden.";
                 return View("Rooms", roomRepo.GetAll());

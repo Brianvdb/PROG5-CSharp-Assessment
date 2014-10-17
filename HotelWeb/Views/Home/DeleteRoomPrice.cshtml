@@ -19,16 +19,29 @@
         <div class="editor-label">
             <b>Einddatum: </b> @Html.DisplayFor(model => model.EndDate)
         </div>
+        <div class="editor-label">
+            <b>Prijs: </b> @Html.DisplayFor(model => model.Price)
+        </div>
         <div class="editor-field">
         </div>
 
         @using (Html.BeginForm())
         {
             
+            int i = ViewBag.RoomId;
+            @Html.Hidden("RoomId", i);
+            
+
+            @Html.HiddenFor(model => model.HotelRoomPriceId)
             <div class="editor-label">
                 <input type="submit" value="Verwijderen" />
             </div>
         }
     </fieldset>
 }
-<p>@Html.ActionLink("Terug naar kamerbeheer.", "Rooms")</p>
+<div>
+    @if (ViewBag.RoomId != null)
+    {
+        @Html.ActionLink("Terug naar prijstarieven beheren", "RoomPrices", new { id = ViewBag.RoomId })
+    }
+</div>
