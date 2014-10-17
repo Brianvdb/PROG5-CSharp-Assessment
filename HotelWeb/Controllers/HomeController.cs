@@ -159,7 +159,7 @@ namespace HotelWeb.Controllers
             }
             else if (!DateTime.TryParseExact(form["enddate"], "yyyy-MM-dd", CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out end))
             {
-                ViewBag.Error = "Einddatum is niet valide";
+                ViewBag.Error = "Einddatum is niet valide.";
                 return View(price);
             }
             else if (end.Date != price.EndDate.Date)
@@ -183,13 +183,13 @@ namespace HotelWeb.Controllers
 
             if (s > e)
             {
-                ViewBag.Error = "Startdatum is na de einddatum.";
+                ViewBag.Error = "De startdatum mag niet na de einddatum zijn.";
                 return View(price);
             }
 
             if (startDateSet && s < DateTime.Today)
             {
-                ViewBag.Error = "Startdatum is in het verleden.";
+                ViewBag.Error = "Startdatum mag niet in het verleden zijn.";
                 return View(price);
             }
 
@@ -248,7 +248,7 @@ namespace HotelWeb.Controllers
             HotelRoom room = roomRepo.Get(id);
             if (room == null)
             {
-                ViewBag.Error = "De opgegeven kamer bestaat niet";
+                ViewBag.Error = "De opgegeven kamer bestaat niet.";
                 return View(room);
             }
 
@@ -267,7 +267,7 @@ namespace HotelWeb.Controllers
 
             roomRepo.Delete(room);
 
-            ViewBag.Success = "De kamer is verwijderd.";
+            ViewBag.Success = "De kamer is succesvol verwijderd.";
 
             return View();
         }
@@ -295,7 +295,7 @@ namespace HotelWeb.Controllers
 
             if (price < 0)
             {
-                ViewBag.Error = "Prijs mag niet lager dan 0 zijn.";
+                ViewBag.Error = "De prijs mag niet lager dan 0 zijn.";
                 return View(room);
             }
 
@@ -305,7 +305,7 @@ namespace HotelWeb.Controllers
 
             if (personen != 2 && personen != 3 && personen != 5)
             {
-                ViewBag.Error = "Aantal personen moet 2, 3 of 5 zijn.";
+                ViewBag.Error = "Het aantal personen moet 2, 3 of 5 zijn.";
                 return View(room);
             }
 
@@ -398,13 +398,13 @@ namespace HotelWeb.Controllers
         public ActionResult Rooms(FormCollection form)
         {
             if (form["minprice"] == null || form["minprice"] == "") {
-                ViewBag.Error = "U moet een prijs opgeven";
+                ViewBag.Error = "U moet een prijs opgeven.";
                 return View(roomRepo.GetAll());
             }
             float price = float.Parse(form["minprice"].Replace(',', '.'), System.Globalization.CultureInfo.InvariantCulture);
             if (price < 0)
             {
-                ViewBag.Error = "Prijs mag niet lager dan 0 zijn";
+                ViewBag.Error = "Prijs mag niet lager dan 0 zijn.";
                 return View(roomRepo.GetAll());
             }
             HotelRoom room = new HotelRoom()
@@ -418,7 +418,7 @@ namespace HotelWeb.Controllers
             };
             roomRepo.Add(room);
 
-            ViewBag.Success = "De kamer is toegevoegd";
+            ViewBag.Success = "De kamer is succesvol toegevoegd.";
 
             return View(roomRepo.GetAll());
         }
@@ -435,7 +435,7 @@ namespace HotelWeb.Controllers
             DateTime start;
             if (form["startdate"] == null || form["startdate"].Length == 0)
             {
-                ViewBag.Error = "Startdatum is leeg.";
+                ViewBag.Error = "Startdatum mag niet leeg zijn.";
                 return View("Rooms", roomRepo.GetAll());
             }
             else if (!DateTime.TryParseExact(form["startdate"], "yyyy-MM-dd", CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out start)) {
@@ -447,12 +447,12 @@ namespace HotelWeb.Controllers
             DateTime end;
             if (form["enddate"] == null || form["enddate"].Length == 0)
             {
-                ViewBag.Error = "Einddatum is leeg.";
+                ViewBag.Error = "Einddatum mag niet leeg zijn.";
                 return View("Rooms", roomRepo.GetAll());
             }
             else if (!DateTime.TryParseExact(form["enddate"], "yyyy-MM-dd", CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out end))
             {
-                ViewBag.Error = "Einddatum is niet valide";
+                ViewBag.Error = "Einddatum is niet valide.";
                 return View("Rooms", roomRepo.GetAll());
             }
 
@@ -464,13 +464,13 @@ namespace HotelWeb.Controllers
 
             if (start > end)
             {
-                ViewBag.Error = "Startdatum is na de einddatum.";
+                ViewBag.Error = "Startdatum mag niet na de einddatum zijn.";
                 return View("Rooms", roomRepo.GetAll());
             }
 
             if (start < DateTime.Today)
             {
-                ViewBag.Error = "Startdatum is in het verleden.";
+                ViewBag.Error = "Startdatum mag niet in het verleden zijn.";
                 return View("Rooms", roomRepo.GetAll());
             }
 
@@ -518,7 +518,7 @@ namespace HotelWeb.Controllers
             room.RoomPrices.Add(roomPrice);
             roomRepo.UpdateDatabase();
 
-            ViewBag.Success = "De prijstarief voor de opgegeven periode is aangemaakt.";
+            ViewBag.Success = "Het prijstarief voor de opgegeven periode is aangemaakt.";
 
             return View("Rooms", roomRepo.GetAll());
         }
