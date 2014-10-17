@@ -6,14 +6,6 @@
 
 <h1>Kamer Verwijderen</h1>
 
-@if (ViewBag.Success != null)
-{
-    <div class="success">@ViewBag.Success</div>
-}
-else if (ViewBag.Error != null)
-{
-    <div class="error">@ViewBag.Error</div>
-}
 @if(Model != null) {
     <h2>Weet je zeker dat je deze kamer wilt verwijderen?</h2>
     <fieldset>
@@ -34,7 +26,9 @@ else if (ViewBag.Error != null)
         <div class="editor-label">
             <b>Sluitingsdatum: </b> @Html.DisplayFor(model => model.CloseDate)
         </div>
-        <div class="editor-field">        </div>
+        <div class="editor-field">
+        </div>
+
         @using (Html.BeginForm()) {
         @Html.HiddenFor(modelItem => Model.Id)
         <div class="editor-label">

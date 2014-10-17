@@ -10,6 +10,14 @@
     </head>
 
     <body>
+        @if (ViewBag.Success != null)
+        {
+            <div class="success">@ViewBag.Success</div>
+        }
+        else if (ViewBag.Error != null)
+        {
+            <div class="error">@ViewBag.Error</div>
+        }
         <div id="center-wrap">
             <header>
                 <div id="login">Login Personeel</div>
