@@ -60,6 +60,12 @@ namespace HotelWeb.Controllers
             return View(roomPriceRepo.Get(priceId));
         }
 
+        public ActionResult DeleteRoomPrice(int id, int priceId)
+        {
+            ViewBag.RoomId = id;
+            return View(roomPriceRepo.Get(priceId));
+        }
+
         [HttpPost]
         public ActionResult EditRoomPrice(FormCollection form)
         {

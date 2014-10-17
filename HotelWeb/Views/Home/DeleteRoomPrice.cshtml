@@ -1,0 +1,34 @@
+﻿@model DomainModel.HotelRoomPrice
+
+@{
+    ViewBag.Title = "Tarief verwijderen";
+}
+
+<h1>Kamer Verwijderen</h1>
+
+@if (Model != null && ViewBag.RoomId != null)
+{
+    <h2>Weet je zeker dat je deze kamertarief wil verwijderen?</h2>
+    <fieldset>
+        <legend>Kamer @Model.HotelRoomPriceId tarief @ViewBag.RoomId</legend>
+
+        <div class="editor-label">
+            <b>Begindatum: </b> @Html.DisplayFor(model => model.StartDate)
+        </div>
+
+        <div class="editor-label">
+            <b>Einddatum: </b> @Html.DisplayFor(model => model.EndDate)
+        </div>
+        <div class="editor-field">
+        </div>
+
+        @using (Html.BeginForm())
+        {
+            
+            <div class="editor-label">
+                <input type="submit" value="Verwijderen" />
+            </div>
+        }
+    </fieldset>
+}
+<p>@Html.ActionLink("Terug naar kamerbeheer.", "Rooms")</p>
