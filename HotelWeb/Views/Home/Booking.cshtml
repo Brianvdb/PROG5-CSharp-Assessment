@@ -6,4 +6,9 @@
 
 <h1>Inschrijven</h1>
 
-<
+@Html.ActionLink("Test AJAX", "test", "Book");
+
+@using (Html.BeginForm("test", "Book"))
+{
+    <input type="submit" value="Toevoegen" />
+}
