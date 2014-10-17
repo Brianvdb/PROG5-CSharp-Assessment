@@ -29,22 +29,7 @@ namespace HotelWeb.Controllers
             this.roomPriceRepo = new EntityHotelRoomPriceRepository(db);
             this.roomRepo = new EntityHotelRoomRepository(db);
             this.invoiceRepo = new EntityInvoiceRepository(db);
-            
-
-            HotelRoom room = new HotelRoom();
-            room.MinPrice = 20;
-            room.OpenDate = DateTime.Now;
-            room.CloseDate = DateTime.Now;
-            room.NumberOfPersons = 2;
-            room.RoomPrices = new List<HotelRoomPrice>();
-
-
-            //roomRepo.Add(room);
-            //db.HotelRooms.Add(room);
-           // db.SaveChanges();
         }
-        //
-        // GET: /Home/
 
         public ActionResult Index()
         {
@@ -70,6 +55,157 @@ namespace HotelWeb.Controllers
             return View();
         }
 
+        public ActionResult EditRoom(int id)
+        {
+            return View(roomRepo.Get(id));
+        }
+
+        public ActionResult DeleteRoom(int id)
+        {
+            return View(roomRepo.Get(id));
+        }
+
+        [HttpPost]
+        public ActionResult DeleteRoom(FormCollection form)
+        {
+            int id = Int32.Parse(form["Id"]);
+            HotelRoom room = roomRepo.Get(id);
+            if (room == null)
+            {
+                ViewBag.Error = "De opgegeven kamer bestaat niet";
+                return View(room);
+            }
+
+            foreach (Booking b in room.Bookings)
+            {
+                if (b.StartDate >= DateTime.Today || b.EndDate >= DateTime.Today)
+                {
+                    ViewBag.Error = "De kamer kan niet verwijderd omdat er nog boekingen openstaan.";
+                    return View(room);
+                }
+            }
+
+            foreach(HotelRoomPrice p in room.RoomPrices.ToList()) {
+                roomPriceRepo.Delete(p);
+            }
+
+            roomRepo.Delete(room);
+
+            ViewBag.Success = "De kamer is verwijderd.";
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult EditRoom(FormCollection form)
+        {
+            int id = Int32.Parse(form["Id"]);
+            HotelRoom room = roomRepo.Get(id);
+            if (room == null)
+            {
+                return View(room);
+            }
+
+            // CHECK PRICE
+
+            float price = float.Parse(form["minprice"].Replace(',', '.'), System.Globalization.CultureInfo.InvariantCulture);
+
+            if (price < 0)
+            {
+                ViewBag.Error = "Prijs mag niet lager dan 0 zijn.";
+                return View(room);
+            }
+
+            // CHECK PERSONS
+
+            int personen = Int32.Parse(form["personen"]);
+
+            if (personen != 2 && personen != 3 && personen != 5)
+            {
+                ViewBag.Error = "Aantal personen moet 2, 3 of 5 zijn.";
+                return View(room);
+            }
+
+
+            // CHECK OPEN DATE
+
+            DateTime start = DateTime.Now;
+            bool startDate = false;
+            if (form["startdate"] == null || form["startdate"].Length == 0)
+            {
+         
+            }
+            else if (!DateTime.TryParseExact(form["startdate"], "yyyy-MM-dd", CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out start))
+            {
+                ViewBag.Error = "Openingsdatum is niet valide.";
+                return View(room);
+            }
+            else if(room.OpenDate.Date != start.Date)
+            {
+                startDate = true;
+            }
+
+            if (startDate && start < DateTime.Today)
+            {
+                ViewBag.Error = "Openingsdatum mag niet in het verleden zijn.";
+                return View(room);
+            }
+
+            // CHECK END DATE
+
+            DateTime close = DateTime.Now;
+            bool closeDate = false;
+            if (form["closedate"] == null || form["closedate"].Length == 0)
+            {
+
+            }
+            else if (!DateTime.TryParseExact(form["closedate"], "yyyy-MM-dd", CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out close))
+            {
+                ViewBag.Error = "Sluitdatum is niet valide.";
+                return View(room);
+            }
+            else if(room.CloseDate.Date != close.Date)
+            {
+                closeDate = true;
+            }
+
+            if (closeDate && close < DateTime.Today)
+            {
+                ViewBag.Error = "Sluitdatum mag niet in het verleden zijn.";
+                return View(room);
+            }
+
+            if (startDate && closeDate && close < start)
+            {
+                ViewBag.Error = "Sluitdatum mag niet voor de openingsdatum zijn.";
+                return View(room);
+            }
+            else if (closeDate && close < room.OpenDate)
+            {
+                ViewBag.Error = "Sluitdatum mag niet voor de openingsdatum zijn.";
+                return View(room);
+            }
+
+            // NU AANPASSEN
+
+            if (startDate)
+            {
+                room.OpenDate = start;
+            }
+            if (closeDate)
+            {
+                room.CloseDate = close;
+            }
+            room.NumberOfPersons = personen;
+            room.MinPrice = price;
+
+            roomRepo.UpdateDatabase();
+
+            ViewBag.Success = "De wijzigingen zijn succesvol doorgevoerd.";
+
+            return View(room);
+        }
+
         public ActionResult RoomPrices(int id)
         {
             return View(roomRepo.Get(id));
@@ -93,6 +229,11 @@ namespace HotelWeb.Controllers
             ViewBag.Success = "De kamer is toegevoegd";
 
             return View(roomRepo.GetAll());
+        }
+
+        public ActionResult AddRoomPrice()
+        {
+            return View("Rooms", roomRepo.GetAll());
         }
 
         [HttpPost]

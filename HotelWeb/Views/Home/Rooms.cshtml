@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<DomainModel.HotelRoom>
 
 @{
-    ViewBag.Title = "Rooms";
+    ViewBag.Title = "Kamers Beheren";
 }
 
 <h1>Beheer Kamers</h1>
@@ -43,9 +43,6 @@ else if (ViewBag.Error != null)
         <th>
             beheer
         </th>
-        <th>
-
-        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -85,18 +82,8 @@ else if (ViewBag.Error != null)
             @Html.ActionLink("Bekijken", "RoomPrices", new { id = item.Id })
         </td>
         <td>
-            @Html.ActionLink("Bewerken", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Verwijderen", "Delete", new { id=item.Id })
-        </td>
-        <td>
-            @if (item.RoomPrices != null)
-            {
-                @Html.Raw(item.RoomPrices.Count)
-            }
-            else
-            {
-                @Html.Raw("niks");
-            }
+            @Html.ActionLink("Bewerken", "EditRoom", new { id=item.Id }) |
+            @Html.ActionLink("Verwijderen", "DeleteRoom", new { id=item.Id })
         </td>
     </tr>
 }
@@ -146,7 +133,7 @@ else if (ViewBag.Error != null)
                 List<SelectListItem> listItems = new List<SelectListItem>();
                 foreach (var item in Model)
                 {
-                    listItems.Add(new SelectListItem { Text = "Kamer" + item.Id, Value = item.Id + "" });
+                    listItems.Add(new SelectListItem { Text = "Kamer " + item.Id, Value = item.Id + "" });
                 }
     
                 @Html.DropDownList("room", new SelectList(listItems, "Value", "Text"))

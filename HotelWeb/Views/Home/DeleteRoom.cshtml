@@ -1,0 +1,47 @@
+﻿@model DomainModel.HotelRoom
+
+@{
+    ViewBag.Title = "Kamer Verwijderen";
+}
+
+<h1>Kamer Verwijderen</h1>
+
+@if (ViewBag.Success != null)
+{
+    <div class="success">@ViewBag.Success</div>
+}
+else if (ViewBag.Error != null)
+{
+    <div class="error">@ViewBag.Error</div>
+}
+@if(Model != null) {
+    <h2>Weet je zeker dat je deze kamer wilt verwijderen?</h2>
+    <fieldset>
+        <legend>Kamer @Model.Id</legend>
+
+        <div class="editor-label">
+             <b>Personen: </b> @Html.DisplayFor(model => model.NumberOfPersons)
+        </div>
+
+        <div class="editor-label">
+            <b>Minimumprijs: </b> @Html.DisplayFor(model => model.MinPrice)
+        </div>
+
+        <div class="editor-label">
+            <b>Openingsdatum: </b> @Html.DisplayFor(model => model.OpenDate)
+        </div>
+  
+        <div class="editor-label">
+            <b>Sluitingsdatum: </b> @Html.DisplayFor(model => model.CloseDate)
+        </div>
+        <div class="editor-field">        </div>
+        @using (Html.BeginForm()) {
+        @Html.HiddenFor(modelItem => Model.Id)
+        <div class="editor-label">
+            <input type="submit" value="Verwijderen" />
+        </div>
+        }
+    </fieldset>
+}
+<p>@Html.ActionLink("Terug naar kamerbeheer.", "Rooms")</p>
+

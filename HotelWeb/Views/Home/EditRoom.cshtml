@@ -1,0 +1,72 @@
+﻿@model DomainModel.HotelRoom
+
+@{
+    ViewBag.Title = "Kamer Bewerken";
+}
+
+<h1>Kamer Bewerken</h1>
+
+@if (ViewBag.Success != null)
+{
+    <div class="success">@ViewBag.Success</div>
+}
+else if (ViewBag.Error != null)
+{
+    <div class="error">@ViewBag.Error</div>
+}
+
+@if (Model == null)
+{
+    <p>De opgegeven kamer bestaat niet</p>
+}
+else
+{
+    using (Html.BeginForm())
+    {
+
+        <fieldset>
+            <legend>@Html.Raw("Kamer " + Model.Id)</legend>
+
+            @Html.HiddenFor(modelItem => Model.Id)
+
+            <div class="editor-label">
+                @Html.Label("Aantal personen")
+            </div>
+            <div class="editor-field">
+                <select id="personen" name="personen">
+                    <option value="2" @if (Model.NumberOfPersons == 2) { @Html.Raw("selected") ; }>2 persoons</option>
+                    <option value="3" @if (Model.NumberOfPersons == 3) { @Html.Raw("selected") ; }>3 persoons</option>
+                    <option value="5" @if (Model.NumberOfPersons == 5) { @Html.Raw("selected") ; }>5 persoons</option>
+                </select>
+            </div>
+
+            <div class="editor-label">
+                @Html.Label("Minimumprijs")
+            </div>
+            <div class="editor-field">
+                @Html.TextBox("minprice", Model.MinPrice.ToString().Replace(',', '.'), new { type = "number", step = "0.01" })
+            </div>
+            <div class="editor-label">
+                @Html.Label("Opendatum")
+            </div>
+            <div class="editor-field">
+                @Html.TextBox("startdate", Model.OpenDate.ToString("yyyy-MM-dd"), new { type = "date" })
+            </div>
+
+            <div class="editor-label">
+                @Html.Label("Sluitdatum")
+            </div>
+            <div class="editor-field">
+                @Html.TextBox("closedate", Model.CloseDate.ToString("yyyy-MM-dd"), new { type = "date" })
+            </div>
+
+            <p>
+                <input type="submit" value="Opslaan" />
+            </p>
+        </fieldset>
+    }
+}
+
+<div>
+    @Html.ActionLink("Terug naar kamerbeheer.", "Rooms")
+</div>
