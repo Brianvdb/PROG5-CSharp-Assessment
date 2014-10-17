@@ -62,7 +62,7 @@ header{
         width: 147px;
         height: 156px;
         color: gray;
-        margin-bottom: 4px;
+        margin-bottom: $border-weight+2;
     }
 
     menu{
@@ -100,14 +100,14 @@ header{
         }
     } 
 
-    #slides {
-        display: none;    
-    }
-
     #image-slide {
         background-color: $default-widget-background;
         float:none;
         width:100%;
+
+        #slides {
+            display: none;
+        }
     }
 }
 
@@ -116,6 +116,12 @@ content{
     display:block;
     h1{
         font-size: 20pt;
+        font-style: oblique;
+    }
+
+    h2{
+        margin-top: 20px;
+        font-size: 18pt;
         font-style: oblique;
     }
 
@@ -141,6 +147,22 @@ content{
             background-color: $default-bordercolor;
         }
     }
+
+    legend{
+        @extend .base-button;
+        text-align: left;
+    }
+
+    fieldset{
+        margin: 20px 0;
+        border: solid 1px $default-bordercolor;
+        padding: 30px;
+
+        .editor-field{
+            margin-bottom:20px;
+        }
+    }
+    
 }
 
 footer{

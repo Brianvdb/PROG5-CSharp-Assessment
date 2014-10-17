@@ -30,7 +30,7 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
-.base-button, header #login, header menu li, content table tr th, footer {
+.base-button, header #login, header menu li, content table tr th, content legend, footer {
   -o-transition: 0.5s;
   -moz-transition: 0.5s;
   -webkit-transition: 0.5s;
@@ -70,7 +70,7 @@ header {
     width: 147px;
     height: 156px;
     color: gray;
-    margin-bottom: 4px; }
+    margin-bottom: 5px; }
   header menu {
     float: right; }
     header menu ul {
@@ -93,18 +93,22 @@ header {
       border-radius: 15px 0 0 0; }
     header menu li:last-child {
       border-radius: 0 15px 0 0; }
-  header #slides {
-    display: none; }
   header #image-slide {
     background-color: black;
     float: none;
     width: 100%; }
+    header #image-slide #slides {
+      display: none; }
 
 content {
   padding-top: 20px;
   display: block; }
   content h1 {
     font-size: 20pt;
+    font-style: oblique; }
+  content h2 {
+    margin-top: 20px;
+    font-size: 18pt;
     font-style: oblique; }
   content table {
     background-color: #eee;
@@ -119,6 +123,14 @@ content {
       padding: 5px; }
     content table tr:nth-child(odd) {
       background-color: #ccc; }
+  content legend {
+    text-align: left; }
+  content fieldset {
+    margin: 20px 0;
+    border: solid 1px #ccc;
+    padding: 30px; }
+    content fieldset .editor-field {
+      margin-bottom: 20px; }
 
 footer {
   border-width: 3px 0 0 0;
