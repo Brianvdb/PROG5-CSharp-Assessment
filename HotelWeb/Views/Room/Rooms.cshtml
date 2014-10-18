@@ -45,20 +45,50 @@
             @Html.DisplayFor(modelItem => item.NumberOfPersons)
         </td>
         <td>
-            @if (item.Bookings == null)
+            @if (DateTime.Now >= item.CloseDate && item.OpenDate < item.CloseDate){
+                @Html.Raw("Gesloten");
+            }
+            else if(item.Bookings == null)
             {
-                @Html.Raw("Leeg")
+                @Html.Raw("Vrij")
             }
             else
             {
+                string status = "Vrij";
                 for (int i = 0; i < item.Bookings.Count; i++)
                 {
-                    if(item.Bookings.ElementAt(i).StartDate > DateTime.Now && item.Bookings.ElementAt(i).EndDate < DateTime.Now) {
-                        @Html.Raw("Bezet")
+                    if (item.Bookings.ElementAt(i).StartDate >= DateTime.Now && item.Bookings.ElementAt(i).EndDate <= DateTime.Now)
+                    {
+                        status = "Bezet";
+                        break;
                     }
                 }
+                
+                @Html.Raw(status);
             }
         </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         <td>
             @Html.DisplayFor(modelItem => item.MinPrice)
