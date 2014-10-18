@@ -183,6 +183,10 @@ footer{
     position: fixed;
     bottom: 0;
     height: $header-height;
+
+    a{
+        color:$default-bordercolor !important;
+    }
 }
 
 #center-wrap{

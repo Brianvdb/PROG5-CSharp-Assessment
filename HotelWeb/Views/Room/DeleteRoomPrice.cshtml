@@ -1,0 +1,47 @@
+﻿@model DomainModel.HotelRoomPrice
+
+@{
+    ViewBag.Title = "Tarief verwijderen";
+}
+
+<h1>Kamer Verwijderen</h1>
+
+@if (Model != null && ViewBag.RoomId != null)
+{
+    <h2>Weet je zeker dat je deze kamertarief wil verwijderen?</h2>
+    <fieldset>
+        <legend>Kamer @Model.HotelRoomPriceId tarief @ViewBag.RoomId</legend>
+
+        <div class="editor-label">
+            <b>Begindatum: </b> @Html.DisplayFor(model => model.StartDate)
+        </div>
+
+        <div class="editor-label">
+            <b>Einddatum: </b> @Html.DisplayFor(model => model.EndDate)
+        </div>
+        <div class="editor-label">
+            <b>Prijs: </b> @Html.DisplayFor(model => model.Price)
+        </div>
+        <div class="editor-field">
+        </div>
+
+        @using (Html.BeginForm())
+        {
+            
+            int i = ViewBag.RoomId;
+            @Html.Hidden("RoomId", i);
+            
+
+            @Html.HiddenFor(model => model.HotelRoomPriceId)
+            <div class="editor-label">
+                <input type="submit" value="Verwijderen" />
+            </div>
+        }
+    </fieldset>
+}
+<div>
+    @if (ViewBag.RoomId != null)
+    {
+        @Html.ActionLink("Terug naar prijstarieven beheren", "RoomPrices", new { id = ViewBag.RoomId })
+    }
+</div>

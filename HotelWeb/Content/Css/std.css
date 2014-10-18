@@ -148,6 +148,8 @@ footer {
   position: fixed;
   bottom: 0;
   height: 30px; }
+  footer a {
+    color: #ccc !important; }
 
 #center-wrap {
   padding: 0 10% 0 10%;

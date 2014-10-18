@@ -22,13 +22,13 @@
             <header>
                 <div id="login">Login Personeel</div>
                 <div id="header-container">
-                    <img id="header-logo" alt="Hogwards Hotels" src="~/Content/Images/Crest_Hogwarts.jpg">
+                    <img id="header-logo" alt="Hogwarts Hotels" src="~/Content/Images/Crest_Hogwarts.jpg">
                     <menu>
                         <ul>
-                            <li><a href="~/Home/">Over Hogwards</a></li>
+                            <li><a href="~/Home/">Over Hogwarts</a></li>
                             <li><a href="~/Home/Booking/">Inschrijven</a></li>
                             <li><a href="~/Home/Guests/">Klanten</a></li>
-                            <li><a href="~/Home/Rooms/">Kamers</a></li>
+                            <li><a href="~/Room/Rooms/">Kamers</a></li>
                             <li><a href="~/Home/Contact/">Contact</a></li>
                         </ul>
                     </menu>
@@ -74,6 +74,6 @@
                 @RenderBody()
             </content>
         </div>
-        <footer>Hogward Hotels Copyright @DateTime.Now.Year, @Html.ActionLink("Contact", "Contact")</footer>
+        <footer>Hogwart Hotels Copyright @DateTime.Now.Year, @Html.ActionLink("Contact", "Contact")</footer>
     </body>
 </html>
