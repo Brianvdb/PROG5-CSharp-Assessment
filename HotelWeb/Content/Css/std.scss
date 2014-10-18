@@ -31,13 +31,20 @@ body {
 }
 
 a{
-    color:$default-bordercolor;
+    color:black;
+    font-weight:bold;
     text-decoration:none;
+}
+a:hover{
+    text-decoration:underline;
 }
 
 header{
     position:relative;
-
+    a{
+        color:$default-bordercolor;
+        text-decoration:none;
+    }
     #header-container{
         border-bottom: solid ($border-weight + 2) $default-widget-background;
     }
@@ -89,7 +96,10 @@ header{
             display:block;
             width: 100%;
             height: 100%;
-
+        }
+        a:hover{
+            text-decoration: none;
+            color:darken($default-bordercolor, 10%);
         }
         li:first-child{
             border-radius:$default-radius 0 0 0;
@@ -129,13 +139,7 @@ content{
         background-color:#eee;
         border: solid $border-weight $default-bordercolor;
         tr{
-            a{
-                color:black;
-                font-weight:bold;
-            }
-            a:hover{
-                text-decoration:underline;
-            }
+
             th{
                 @extend .base-button;
                 border-right-width:1px;
@@ -209,6 +213,8 @@ footer{
     @extend .infobox;
     background-color:red;
 }
+
+
 
 @media only screen 
 and (max-width : $min-device-width) {

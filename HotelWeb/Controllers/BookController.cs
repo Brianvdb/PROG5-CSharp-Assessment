@@ -8,6 +8,8 @@ using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using ExtensionMethods;
+using DomainModel;
+using HotelWeb.Models;
 
 namespace HotelWeb.Controllers
 {
@@ -15,15 +17,16 @@ namespace HotelWeb.Controllers
     {
         private EntityHotelRoomRepository roomRepo;
 
-        [HttpPost]
+        public BookController()
+        {
+            DatabaseContext db = new DatabaseContext();
+            roomRepo = new EntityHotelRoomRepository(db);
+        }
+
+        
         public ActionResult test(){
-            List<Person> people = new List<Person>{
-                   new Person{ID = 1, FirstName = "Scott", LastName = "Gurthie"},
-                   new Person{ID = 2, FirstName = "Bill", LastName = "Gates"}
-                   };
-            
-      
-            return Json(people.ToJSON());
+            IEnumerable<HotelRoom> list = roomRepo.GetAll().Where(item => item.NumberOfPersons == 3);
+            return Content(list.ToJSON(1));
         }
     }
 }
