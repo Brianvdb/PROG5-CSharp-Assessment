@@ -207,7 +207,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\Rooms.cshtml" />
+    <Content Include="Views\Room\Rooms.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Scripts\jquery-2.1.1.min.map" />
@@ -227,13 +227,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\RoomPrices.cshtml" />
+    <Content Include="Views\Room\RoomPrices.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\EditRoom.cshtml" />
+    <Content Include="Views\Room\EditRoom.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\DeleteRoom.cshtml" />
+    <Content Include="Views\Room\DeleteRoom.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Css\booking.scss" />
@@ -244,10 +244,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\EditRoomPrice.cshtml" />
+    <Content Include="Views\Room\EditRoomPrice.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\DeleteRoomPrice.cshtml" />
+    <Content Include="Views\Room\DeleteRoomPrice.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Room\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
