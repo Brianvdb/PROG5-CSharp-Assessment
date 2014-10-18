@@ -1,8 +1,9 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Hogwarts";
     ViewBag.Description = "Over Hogwarts";
 }
 
 <p>Welkom op onze betoverende website.</p>
 <p>U heeft op deze website de mogelijkheid om een kamer te boeken in ons magische hotel.</p>
 <p>Tot snel!</p>
+@Html.Raw(Request.IsAuthenticated)
