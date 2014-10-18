@@ -3,12 +3,42 @@
 }
 <!-- Add booking css -->
 <link href="~/Content/Css/booking.min.css" type="text/css" rel="stylesheet" media="screen" />
+<script src="~/Content/Scripts/ajaxBooking.js" type="text/javascript"></script>
 
 <h1>Inschrijven</h1>
 
-@Html.ActionLink("Test AJAX", "test", "Book");
-
 @using (Html.BeginForm("test", "Book"))
 {
-    <input type="submit" value="Toevoegen" />
+    <fieldset>
+        <legend>Nieuwe kamer</legend>
+        <div class="editor-label">
+            @Html.Label("Wanneer komt u aan?")
+        </div>
+        <div class="editor-field">
+            @Html.TextBox("bookingstart", null, new { type = "date", min = DateTime.Now.ToString("yyyy-MM-dd") })
+        </div>
+        <div class="editor-label">
+            @Html.Label("Hoeveel nachten wilt u blijven?")
+        </div>
+        <div class="editor-field">
+            @Html.TextBox("bookingnights", 1, new { type = "number", min= "1" })
+        </div>
+        <div class="editor-label">
+            @Html.Label("Wat voor kamer wilt u?")
+        </div>
+        <div class="editor-field">
+            <select id="personen" name="bookingroomsize">
+                <option value="2">2 persoons</option>
+                <option value="3">3 persoons</option>
+                <option value="5">5 persoons</option>
+            </select>
+        </div>
+        <div class="editor-label">
+            @Html.Label("Ook grotere kamers in de lijst weergeven?")
+        </div>
+        <div class="editor-field">
+            @Html.CheckBox("bookingmorepermitted")
+        </div>
+        <input type="submit" id="baseInfoSubmit" value="Toevoegen" />
+    </fieldset>
 }

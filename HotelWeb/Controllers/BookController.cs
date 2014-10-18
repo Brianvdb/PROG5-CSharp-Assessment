@@ -23,10 +23,22 @@ namespace HotelWeb.Controllers
             roomRepo = new EntityHotelRoomRepository(db);
         }
 
-        
-        public ActionResult test(){
-            IEnumerable<HotelRoom> list = roomRepo.GetAll().Where(item => item.NumberOfPersons == 3);
-            return Content(list.ToJSON(1));
+        [HttpPost]
+        public ActionResult test(FormCollection form)
+        {
+            int id = Int32.Parse(form["PersonRoom"]);
+            bool extraBig = form["BiggerRoom"] == "true";
+
+            IEnumerable<RoomCandidatesJson> list = roomRepo.GetAll().Where(item =>
+                {
+                    if(extraBig){
+                        return item.NumberOfPersons >= id;
+                    }else{
+                        return item.NumberOfPersons == id;
+                    }
+                })
+                .Select(item => new RoomCandidatesJson{ID = item.Id, NumberOfPersons = item.NumberOfPersons, MinPrice = item.MinPrice});
+            return Json(list.ToJSON());
         }
     }
 }

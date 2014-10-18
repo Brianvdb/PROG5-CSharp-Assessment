@@ -118,8 +118,8 @@
     <Compile Include="Controllers\GuestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JSONHelper.cs" />
-    
     <Compile Include="Controllers\RoomController.cs" />
+    <Compile Include="Models\RoomCandidatesJson.cs" />
     <Compile Include="Repositories\EntityAddressRepository.cs" />
     <Compile Include="Repositories\EntityBookingRepository.cs" />
     <Compile Include="Repositories\EntityGuestRepository.cs" />
@@ -161,10 +161,14 @@
     <Content Include="Content\Images\slides\slide3e.jpg" />
     <Content Include="Content\Images\slides\slide4e.jpg" />
     <Content Include="Content\Images\slides\slide5e.jpg" />
+    <Content Include="Content\Scripts\ajaxBooking.js" />
     <Content Include="Content\Scripts\jquery-2.1.1.js" />
     <Content Include="Content\Scripts\jquery-2.1.1.min.js" />
     <Content Include="Content\Scripts\jquery.slides.min.js" />
     <Content Include="Global.asax" />
+    <None Include="Scripts\jquery-2.1.0-vsdoc.js" />
+    <Content Include="Scripts\jquery-2.1.0.js" />
+    <Content Include="Scripts\jquery-2.1.0.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -173,6 +177,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
+    <Content Include="Scripts\jquery-2.1.0.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
