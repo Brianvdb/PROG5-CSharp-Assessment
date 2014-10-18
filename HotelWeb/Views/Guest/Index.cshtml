@@ -1,0 +1,58 @@
+﻿@model IEnumerable<DomainModel.Guest>
+
+@{
+    ViewBag.Title = "Gasten beheren";
+}
+
+<h1>Gasten beheren</h1>
+
+<table>
+    <tr>
+        <th>
+            voornaam
+        </th>
+        <th>
+            achternaam
+        </th>
+        <th>
+            geboortedatum
+        </th>
+        <th>
+            geslacht
+        </th>
+        <th>
+            beheer
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BirthDate)
+        </td>
+        <td>
+            @if (item.Gender == 0)
+            {
+                @Html.Raw("Man");
+            }
+            else
+            {
+                @Html.Raw("Vrouw");
+            }
+        </td>
+
+
+
+        <td>
+            @Html.ActionLink("Bewerken", "Edit", new { id=item.GuestId })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,65 @@
+﻿@model DomainModel.Guest
+
+@{
+    ViewBag.Title = "Gast Bewerken";
+}
+
+<h2>Gastgegevens wijzigen</h2>
+
+@if (Model != null)
+{
+    using (Html.BeginForm())
+    {
+
+        <fieldset>
+            <legend>Gast @Model.GuestId</legend>
+
+            @Html.HiddenFor(model => model.GuestId)
+
+            <div class="editor-label">
+                @Html.Label("Voornaam")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.FirstName)
+            </div>
+            
+            <div class="editor-label">
+                @Html.Label("Achternaam")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.LastName)
+     
+            </div>
+
+            <div class="editor-label">
+                @Html.Label("Geboortedatum")
+            </div>
+            <div class="editor-field">
+                 @Html.TextBox("birthdate", Model.BirthDate.ToString("yyyy-MM-dd"), new { type = "date" })
+            </div>
+
+            <div class="editor-label">
+                @Html.Label("Geslacht")
+            </div>
+            <div class="editor-field">
+                <select id="gender" name="gender">
+                    <option value="0" @if (Model.Gender == 0) { @Html.Raw("selected")  ; }>Man</option>
+                    <option value="1" @if (Model.Gender == 1) { @Html.Raw("selected")  ; }>Vrouw</option>
+                </select>
+            </div>
+
+            <p>
+                <input type="submit" value="Opslaan" />
+            </p>
+        </fieldset>
+    }
+}
+else
+{
+    <p>De opgegeven gast is niet gevonden.</p>
+}
+
+
+<div>
+    @Html.ActionLink("Terug naar gastenbeheer", "Index")
+</div>

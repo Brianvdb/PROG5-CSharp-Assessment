@@ -27,7 +27,7 @@
                         <ul>
                             <li><a href="~/Home/">Over Hogwarts</a></li>
                             <li><a href="~/Home/Booking/">Inschrijven</a></li>
-                            <li><a href="~/Home/Guests/">Klanten</a></li>
+                            <li><a href="~/Guest/">Gasten</a></li>
                             <li><a href="~/Room/Rooms/">Kamers</a></li>
                             <li><a href="~/Home/Contact/">Contact</a></li>
                         </ul>
@@ -74,6 +74,6 @@
                 @RenderBody()
             </content>
         </div>
-        <footer>Hogwart Hotels Copyright @DateTime.Now.Year, @Html.ActionLink("Contact", "Contact")</footer>
+        <footer>Hogwart Hotels Copyright &copy; @DateTime.Now.Year, @Html.ActionLink("Contact", "Contact")</footer>
     </body>
 </html>
