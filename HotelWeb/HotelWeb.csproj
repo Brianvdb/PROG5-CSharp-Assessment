@@ -119,6 +119,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JSONHelper.cs" />
     <Compile Include="Controllers\RoomController.cs" />
+    <Compile Include="Models\DateCandidatesJson.cs" />
     <Compile Include="Models\RoomCandidatesJson.cs" />
     <Compile Include="Repositories\EntityAddressRepository.cs" />
     <Compile Include="Repositories\EntityBookingRepository.cs" />

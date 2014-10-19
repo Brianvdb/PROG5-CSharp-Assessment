@@ -1,31 +1,33 @@
 ﻿/// <reference path="../Scripts/jquery-2.1.1.js" />
-var startDate, nights;
-var amountOfDatesInTable = 7;               //show one week in the table
-
+var hotelIds = [];
+var nights = -1;
+var startDate = 0;
 $(document).ready(function () {
     $("#baseInfoSubmit").click(function (event) {
         event.preventDefault();
+        hotelIds = [];
+        nights = -1;
+        startDate = 0;
 
         //create data object from form
         var baseData = {
-            StartDate: $("#bookingstart").val(),
-            Nights: $("#bookingnights").val(),
             PersonRoom: $("#personen").val(),
             BiggerRoom: $("#bookingmorepermitted").prop("checked")
         }
 
+        var inputStartdate = $("#bookingstart").val();
+        var inputNights = $("#bookingnights").val();
+
         //check data
         try{
-            checkAlert(baseData.StartDate == "" ? "Check de startdatum!" : "");
-            console.log("Zie je wel :  " + baseData.Nights);
-            checkAlert(baseData.Nights < 1 ? "We verwachten dat je 1 of meer nachten komt slapen. Check het aantal nachten!" : "");
+            checkAlert(inputStartdate == "" ? "Check de startdatum!" : "");
+            checkAlert(inputNights < 1 ? "We verwachten dat je 1 of meer nachten komt slapen. Check het aantal nachten!" : "");
         } catch (e) {
             return;
         }
 
-        //asign correct values to globals
-        startDate = baseData.StartDate;
-        nights = baseData.Nights
+        startDate = inputStartdate;
+        nights = inputNights;
 
         //log collected data
         console.log(baseData);
@@ -33,7 +35,7 @@ $(document).ready(function () {
         //sent data to server to get header information
         $.ajax(
         {
-            url: "/Book/test",
+            url: "/Book/Header",
             data: baseData,
             type: "post",
             success: function (headData) {
@@ -70,6 +72,7 @@ function addBookingTableHeader(headerJson) {
     $bookingTableHeader.append("<th>Data</th>");
 
     headerObj.forEach(function (room) {
+        hotelIds.push(room.ID);
         $bookingTableHeader.append("<th data-id=\"" + room.ID +
             "\">Kamer " + room.ID + "<br />" + room.NumberOfPersons +
             " persoons<br />Vanaf &euro;" + room.MinPrice + ".-</th>");
@@ -79,7 +82,24 @@ function addBookingTableHeader(headerJson) {
 }
 
 function changeBookingData() {
-    console.log("You filling table with " + startDate + " for items " + amountOfDatesInTable);
+    console.log(hotelIds);
+    var baseData = {
+        StartDate: startDate,
+        AmountOfDatesInTable: 7,
+        RoomSelection:hotelIds.toString()
+    }
+    $.ajax(
+    {
+        url: "/Book/Dates",
+        data: baseData,
+        type: "post",
+        success: function (headData) {
+            console.log(headData);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert("An error occured while trying to collect complex data: " + thrownError);
+        }
+    });
 }
 
 function checkAlert(data) {

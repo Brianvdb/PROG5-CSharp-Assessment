@@ -11,8 +11,8 @@ namespace DomainModel
     {
         [Key]
         public int InvoiceId { get; set; }
-        public Booking Booking { get; set; }
-        public Address BillingAddress { get; set; }
+        public virtual Booking Booking { get; set; }
+        public virtual Address BillingAddress { get; set; }
 
         public float TotalPrice { get; set; }
 

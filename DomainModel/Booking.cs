@@ -14,12 +14,12 @@ namespace DomainModel
 
         public virtual ICollection<Guest> Guests { get; set; }
 
-        public HotelRoom HotelRoom { get; set; }
+        public virtual HotelRoom HotelRoom { get; set; }
 
        
         public string Email { get; set; }
 
-        public Address GuestAddress { get; set; }
+        public virtual Address GuestAddress { get; set; }
 
         public DateTime StartDate { get; set; }
 
