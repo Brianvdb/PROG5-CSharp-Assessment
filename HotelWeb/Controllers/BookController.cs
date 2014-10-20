@@ -47,9 +47,15 @@ namespace HotelWeb.Controllers
         public ActionResult Dates(FormCollection form)
         {
             DateTime startDate = DateTime.Parse(form["StartDate"]);
+            int amountOfDatesInTable = int.Parse(form["AmountOfDatesInTable"]);
             bool dateCorrect = startDate.Date >= DateTime.Now.Date;
+            string defaultDateFormat = ("yyyy-MM-dd");
             IEnumerable<int> roomIds;
 
+            if (!dateCorrect)
+            {
+                return Json("{error:\"De ingestelde datum kan niet plaats vinden in het verleden\"}");
+            }
             
             roomIds = form["RoomSelection"].Split(',').Select(x => 
             {
@@ -68,7 +74,41 @@ namespace HotelWeb.Controllers
                 return Json("{error:\"Er zijn geen resultaten voor de opgegeven waardes\"}");
             }
 
-            IEnumerable<int> bookings = bookRepo.GetAll().Where(booking => roomIds.Contains(booking.HotelRoom.Id)).Select(booking => booking.BookingId);
+            //what bookings are active during the period that will be showed
+            List<AvailabilityJson> bookings = bookRepo.GetAll()
+                .Where(booking => roomIds.Contains(booking.HotelRoom.Id) &&
+                    booking.StartDate <= startDate.AddDays(amountOfDatesInTable).AddDays(1) &&
+                    booking.EndDate >= startDate)
+                .Select(booking => new AvailabilityJson() { 
+                    startDate = booking.StartDate.Date.ToString(defaultDateFormat),
+                    endDate = booking.EndDate.Date.ToString(defaultDateFormat),
+                    message = "taken",
+                    roomID = booking.HotelRoom.Id
+                }).ToList();
+
+            IEnumerable<HotelRoom> rooms = roomRepo.GetAll().Where(room => roomIds.Contains(room.Id));
+
+            foreach (HotelRoom room in rooms)
+            {
+                if (room.OpenDate >= startDate)
+                {
+                    bookings.Add(new AvailabilityJson() { 
+                        roomID = room.Id,
+                        startDate = startDate.Date.ToString(defaultDateFormat),
+                        endDate = room.OpenDate.Date.ToString(defaultDateFormat), 
+                        message = "closed" 
+                    });
+                }
+
+                if (room.CloseDate > room.OpenDate && room.CloseDate <= startDate.AddDays(amountOfDatesInTable))
+                {
+                    bookings.Add(new AvailabilityJson(){
+                        roomID = room.Id,
+                        startDate = room.CloseDate.ToString(defaultDateFormat),
+                        message = "closed"
+                    });
+                }
+            }
             return Json(bookings.ToJSON());
         }
     }

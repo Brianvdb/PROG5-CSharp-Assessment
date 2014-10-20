@@ -2,6 +2,8 @@
 var hotelIds = [];
 var nights = -1;
 var startDate = 0;
+var items = 7;
+
 $(document).ready(function () {
     $("#baseInfoSubmit").click(function (event) {
         event.preventDefault();
@@ -85,7 +87,7 @@ function changeBookingData() {
     console.log(hotelIds);
     var baseData = {
         StartDate: startDate,
-        AmountOfDatesInTable: 7,
+        AmountOfDatesInTable: items,
         RoomSelection:hotelIds.toString()
     }
     $.ajax(
@@ -93,13 +95,77 @@ function changeBookingData() {
         url: "/Book/Dates",
         data: baseData,
         type: "post",
-        success: function (headData) {
-            console.log(headData);
+        success: function (bodyData) {
+            try{
+                var obj = jQuery.parseJSON(bodyData);
+            }catch(e){
+                var obj = null;
+            }
+
+            drawBookingData(obj);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert("An error occured while trying to collect complex data: " + thrownError);
         }
     });
+}
+
+function drawBookingData(bodyData) {
+    //setup dates
+    var startDateObject = new Date(startDate);
+    var oneDay = 24 * 60 * 60 * 1000;
+ 
+    //create dataArray
+    var dataArray = [];
+    for (var x = 0 ; x < items; x++) {
+        dataArray.push([]);
+    }
+
+    //fill array with data from the ajax request
+    console.log("testie");
+    console.log(bodyData);
+    console.log(dataArray);
+    console.log("endie");
+    bodyData.forEach(function (data) {
+        var dataBeginIndex = new Date(data.startDate);
+        var dataEndIndex = new Date(data.endDate);
+        var startIndex = dateDiff(startDateObject, dataBeginIndex, oneDay);
+        var lastIndex = startIndex + dateDiff(dataBeginIndex, dataEndIndex, oneDay);
+        var roomIndex = hotelIds.indexOf(data.roomID);
+        var stdStatus = data.message;
+        console.log(startIndex);
+        console.log(roomIndex);
+
+        for (var index = startIndex; index < items; index++) {
+            var extraStatus;
+            extraStatus = index == startIndex ? " start" : "";
+            extraStatus = index == lastIndex ? " end" : "";
+            dataArray[index][roomIndex] = stdStatus + extraStatus;
+        }
+    });
+
+    //show actual data
+    var date = new Date();
+    for (var x = 0; x < items; x++) {
+        date.setDate(startDateObject.getDate() + x);
+        var dateString = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+
+        $("#booking-table tbody").append("<tr data-date=\"" +  dateString  + "\"></tr>");
+
+    }
+    $("#booking-table tbody tr").each(function (index) {
+        date.setDate(startDateObject.getDate() + index);
+        var totalString;
+        totalString += "<td>" + date.toDateString() + "</td>";
+        for (var x = 0; x < hotelIds.length; x++) {
+            var classData = dataArray[index][x];
+            var className = classData == undefined ? "free" : classData;
+            totalString += "<td class=\"" + className + "\"></td>";
+        }
+        $(this).append(totalString);
+    });
+
+    console.log(dataArray);
 }
 
 function checkAlert(data) {
@@ -109,4 +175,8 @@ function checkAlert(data) {
         alert(data);
         throw "Sorry, you have to check your input";
     }
+}
+
+function dateDiff(fistDate, secondDate, factor) {
+    return Math.round(Math.abs(fistDate.getTime() - secondDate.getTime())/factor);
 }
