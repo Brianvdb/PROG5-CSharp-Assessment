@@ -21,6 +21,8 @@ namespace HotelWeb.Models
 
         public DbSet<Invoice> Invoices { get; set; }
 
+        public DbSet<UserAccount> Accounts { get; set; }
+
 
     }
 }

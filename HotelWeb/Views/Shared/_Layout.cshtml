@@ -20,15 +20,24 @@
         }
         <div id="center-wrap">
             <header>
-                <div id="login">Login Personeel</div>
+                @if (Request.IsAuthenticated)
+                {
+                    <div id="login"><a href="~/Account/Logout">Uitloggen</a></div>
+                }
+                else
+                {
+                    <div id="login"><a href="~/Account/Login">Login Personeel</a></div>
+                }
                 <div id="header-container">
                     <img id="header-logo" alt="Hogwarts Hotels" src="~/Content/Images/Crest_Hogwarts.jpg">
                     <menu>
                         <ul>
                             <li><a href="~/Home/">Over Hogwarts</a></li>
                             <li><a href="~/Home/Booking/">Inschrijven</a></li>
-                            <li><a href="~/Guest/">Gasten</a></li>
-                            <li><a href="~/Room/Rooms/">Kamers</a></li>
+                            @if (Request.IsAuthenticated) {
+                                <li><a href="~/Guest/">Gasten</a></li>
+                                <li><a href="~/Room/Rooms/">Kamers</a></li>
+                            }
                             <li><a href="~/Home/Contact/">Contact</a></li>
                         </ul>
                     </menu>
@@ -40,32 +49,32 @@
                     <img src="~/Content/Images/slides/slide3e.jpg" alt="Luxe diners">
                     <img src="~/Content/Images/slides/slide4e.jpg" alt="Extreme sporten voor de kids">
                     <img src="~/Content/Images/slides/slide5e.jpg" alt="Prachtige omgeving">
-                    
+
                 </div>
                 <script>
-                $(function () {
-                    $('#image-slide').slidesjs({
-                        width: 1920,
-                        height: 480,
-                        play: {
-                            active: false,
-                            auto: true,
-                            interval: 10000,
-                            swap: true
-                        },
-                        effect: {
-                            slide: {
-                                speed: 2000
+                    $(function () {
+                        $('#image-slide').slidesjs({
+                            width: 1920,
+                            height: 480,
+                            play: {
+                                active: false,
+                                auto: true,
+                                interval: 10000,
+                                swap: true
+                            },
+                            effect: {
+                                slide: {
+                                    speed: 2000
+                                }
+                            },
+                            navigation: {
+                                active: false
+                            },
+                            pagination: {
+                                active: false
                             }
-                        },
-                        navigation: {
-                            active: false
-                        },
-                        pagination: {
-                            active: false
-                        }
+                        });
                     });
-                });
                 </script>
 
             </header>
