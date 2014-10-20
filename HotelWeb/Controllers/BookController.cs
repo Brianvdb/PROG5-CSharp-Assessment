@@ -30,7 +30,7 @@ namespace HotelWeb.Controllers
         {
             int id = Int32.Parse(form["PersonRoom"]);
             bool extraBig = form["BiggerRoom"] == "true";
-
+            
             IEnumerable<RoomCandidatesJson> list = roomRepo.GetAll().Where(item =>
                 {
                     if(extraBig){
@@ -42,7 +42,11 @@ namespace HotelWeb.Controllers
                 .Select(item => new RoomCandidatesJson{ID = item.Id, NumberOfPersons = item.NumberOfPersons, MinPrice = item.MinPrice});
             return Json(list.ToJSON());
         }
-
+        public ActionResult test()
+        {
+            IEnumerable<HotelRoom> list = roomRepo.GetAll();
+            return Json("{}");
+        }
         [HttpPost]
         public ActionResult Dates(FormCollection form)
         {

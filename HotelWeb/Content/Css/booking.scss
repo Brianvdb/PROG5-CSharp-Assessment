@@ -1,4 +1,11 @@
-﻿#select-booking-date{
+﻿@mixin transition($time: 0.5s){
+    -o-transition:$time;
+    -moz-transition:$time;
+    -webkit-transition:$time;
+    transition:$time;
+}
+
+#select-booking-date{
     display:none;
 }
 
@@ -7,5 +14,35 @@
 
     input[type="button"]{
         margin:20px 20px 20px 0;
+    }
+
+    #booking-table{
+
+        td{
+            background-color: white;
+            width: 100%;
+            height: 100%;
+            border:none;
+        }
+
+        .free{
+            @include transition;
+            border:1px solid silver;
+            cursor: pointer;
+        }
+        .free:hover{
+            background-color:cornflowerblue;
+        }
+        .plan{
+            background-color:forestgreen;
+        }
+
+        .taken{
+            background-color:brown;
+        }
+
+        .closed{
+            background-color:gray;
+        }
     }
 }

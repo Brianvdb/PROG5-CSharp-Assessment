@@ -2,7 +2,7 @@
 var hotelIds = [];
 var nights = -1;
 var startDate = 0;
-var items = 7;
+var items = 14;
 
 $(document).ready(function () {
     $("#baseInfoSubmit").click(function (event) {
@@ -54,6 +54,32 @@ $(document).ready(function () {
                 alert("An error occured while trying to collect data: " + thrownError);
             }
         });
+    });
+    
+    $("#previous-week-button").click(function () {
+        changeStartDate(-7);
+    });
+
+    $("#next-week-button").click(function () {
+        changeStartDate(7);
+    });
+
+    $("#booking-table").on("click", ".free", function () {
+        var index = $(this).index();
+        var roomId = hotelIds[index - 1];
+        var nightsBooked = nights;
+        var startDate = $(this).parent().data("date");
+
+        $(".plan").removeClass().addClass("free");
+
+        var parentIndex = $(this).parent().index();
+        
+        var $container = $("#booking-table tbody");
+        for (var x = 0; x <= nightsBooked; x++) {
+            $container.children().eq(parentIndex+x).children().eq(index).addClass("plan");
+        }
+
+        alert("Je hebt kamer " + roomId + " geboekt\nJe blijft "+ nightsBooked + " nachten en je komt aan op " + startDate);
     });
 });
 
@@ -111,6 +137,8 @@ function changeBookingData() {
 }
 
 function drawBookingData(bodyData) {
+    console.log(bodyData);
+
     //setup dates
     var startDateObject = new Date(startDate);
     var oneDay = 24 * 60 * 60 * 1000;
@@ -122,21 +150,25 @@ function drawBookingData(bodyData) {
     }
 
     //fill array with data from the ajax request
-    console.log("testie");
-    console.log(bodyData);
-    console.log(dataArray);
-    console.log("endie");
     bodyData.forEach(function (data) {
         var dataBeginIndex = new Date(data.startDate);
         var dataEndIndex = new Date(data.endDate);
         var startIndex = dateDiff(startDateObject, dataBeginIndex, oneDay);
-        var lastIndex = startIndex + dateDiff(dataBeginIndex, dataEndIndex, oneDay);
         var roomIndex = hotelIds.indexOf(data.roomID);
         var stdStatus = data.message;
-        console.log(startIndex);
-        console.log(roomIndex);
 
-        for (var index = startIndex; index < items; index++) {
+        var lastIndex;
+        if (data.endDate == null) {
+            lastIndex = items;
+        } else {
+            lastIndex = startIndex + dateDiff(dataBeginIndex, dataEndIndex, oneDay);
+        }
+
+        for (var index = startIndex; index < items && index <= lastIndex; index++) {
+            if (index < 0) {
+                index = -1;
+                continue;
+            }
             var extraStatus;
             extraStatus = index == startIndex ? " start" : "";
             extraStatus = index == lastIndex ? " end" : "";
@@ -145,15 +177,16 @@ function drawBookingData(bodyData) {
     });
 
     //show actual data
-    var date = new Date();
     for (var x = 0; x < items; x++) {
+        var date = new Date();
         date.setDate(startDateObject.getDate() + x);
-        var dateString = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+        var dateString = printSimpleDate(date);
 
         $("#booking-table tbody").append("<tr data-date=\"" +  dateString  + "\"></tr>");
 
     }
     $("#booking-table tbody tr").each(function (index) {
+        var date = new Date();
         date.setDate(startDateObject.getDate() + index);
         var totalString;
         totalString += "<td>" + date.toDateString() + "</td>";
@@ -178,5 +211,19 @@ function checkAlert(data) {
 }
 
 function dateDiff(fistDate, secondDate, factor) {
-    return Math.round(Math.abs(fistDate.getTime() - secondDate.getTime())/factor);
+    return Math.round(secondDate.getTime() - fistDate.getTime())/factor;
+}
+
+function printSimpleDate(dateobj){
+    return dateobj.getFullYear() + "-" + (dateobj.getMonth() + 1) + "-" + dateobj.getDate();
+}
+
+function changeStartDate(dif){
+    resetBookingTable(false);
+    var start = new Date(startDate);
+    start.setDate(start.getDate() + dif);
+    startDate = printSimpleDate(start);
+
+    changeBookingData();
+    $("#booking-table-container").slideDown();
 }
