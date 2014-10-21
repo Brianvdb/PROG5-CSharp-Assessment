@@ -115,5 +115,59 @@ namespace HotelWeb.Controllers
             }
             return Json(bookings.ToJSON());
         }
+
+        public ActionResult PlanCorrect(FormCollection plan)
+        {
+            bool correct = false;
+
+            DateTime startDate = new DateTime();
+            DateTime endDate = new DateTime();
+            int nights = -1;
+            int roomId = -1;
+
+            try
+            {
+                startDate = DateTime.Parse(plan["StartDate"]);
+                nights = int.Parse(plan["Nights"]);
+                roomId = int.Parse(plan["RoomId"]);
+
+                //calculate enddate
+                endDate = startDate.AddDays(nights);
+            }
+            catch
+            {
+                return Json("{\"PlanCorrect\":\"false\"}");
+            }
+
+            //check room == free
+            correct = RoomIsFree(startDate, endDate, roomId);
+
+            return Json("{\"PlanCorrect\":\"" + correct + "\",\"StartDate\":\"" + startDate.ToString("yyyy-MM-dd") + "\",\"EndDate\":\"" + endDate.ToString("yyyy-MM-dd") + "\"}");
+        }
+
+        public bool RoomIsFree(DateTime start, DateTime end, int roomId)
+        {
+            HotelRoom thisRoom = roomRepo.Get(roomId);
+
+            //is room open (not closed)
+            if ((thisRoom.CloseDate > thisRoom.OpenDate && end >= thisRoom.CloseDate) || start <= thisRoom.OpenDate)
+            {
+                return false;
+            }
+
+            //is room available
+            List<Booking> bookings = bookRepo.GetAll()
+                .Where(booking => 
+                    booking.HotelRoom.Id == roomId &&
+                    booking.StartDate <= end &&
+                    booking.EndDate >= start).ToList();
+
+            if (bookings.Count > 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

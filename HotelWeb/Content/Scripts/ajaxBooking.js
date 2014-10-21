@@ -69,17 +69,47 @@ $(document).ready(function () {
         var roomId = hotelIds[index - 1];
         var nightsBooked = nights;
         var startDate = $(this).parent().data("date");
+        var $clickedPlan = $(this);
 
-        $(".plan").removeClass().addClass("free");
-
-        var parentIndex = $(this).parent().index();
-        
-        var $container = $("#booking-table tbody");
-        for (var x = 0; x <= nightsBooked; x++) {
-            $container.children().eq(parentIndex+x).children().eq(index).addClass("plan");
+        var planData = {
+            StartDate: startDate,
+            Nights: nightsBooked,
+            RoomId: roomId
         }
 
-        alert("Je hebt kamer " + roomId + " geboekt\nJe blijft "+ nightsBooked + " nachten en je komt aan op " + startDate);
+        //check if plan == correct
+        $.ajax(
+        {
+            url: "/Book/PlanCorrect",
+            data: planData,
+            type: "post",
+            success: function (answer) {
+                console.log(answer);
+                var answerObj = jQuery.parseJSON(answer);
+
+                if (answerObj.PlanCorrect == "True") {
+                    $(".plan").removeClass().addClass("free");
+
+                    var parentIndex = $clickedPlan.parent().index();
+
+                    var $container = $("#booking-table tbody");
+                    for (var x = 0; x <= nightsBooked; x++) {
+                        $container.children().eq(parentIndex + x).children().eq(index).addClass("plan");
+                    }
+                    $("#booking-table-container").slideDown();
+                } else {
+                    alert("De geselecteerde datum kan niet worden ingeplant. De kamer is minstens een van de geselecteerde dagen gesloten of bezet.");
+                }
+
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert("An error occured while trying to collect data: " + thrownError);
+            }
+        });
+
+        
+
+        //alert("Je hebt kamer " + roomId + " geboekt\nJe blijft "+ nightsBooked + " nachten en je komt aan op " + startDate);
     });
 });
 
