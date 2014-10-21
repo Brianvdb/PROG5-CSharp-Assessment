@@ -30,7 +30,7 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
-.base-button, header #login, header menu li, content table tr th, content legend, footer {
+.base-button, header #login, header menu li, content table tr th, content legend, content #next-button, footer {
   -o-transition: 0.5s;
   -moz-transition: 0.5s;
   -webkit-transition: 0.5s;
@@ -141,6 +141,18 @@ content {
     padding: 30px; }
     content fieldset .editor-field {
       margin-bottom: 20px; }
+  content #next-button {
+    display: block;
+    margin-left: auto;
+    margin-right: 0;
+    padding: 10px; }
+  content #next-button:hover {
+    background-color: #333333; }
+  content #next-button-container {
+    display: none;
+    margin-top: 20px;
+    position: relative;
+    width: 100%; }
 
 footer {
   border-width: 3px 0 0 0;

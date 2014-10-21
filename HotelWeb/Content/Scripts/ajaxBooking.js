@@ -96,7 +96,14 @@ $(document).ready(function () {
                     for (var x = 0; x <= nightsBooked; x++) {
                         $container.children().eq(parentIndex + x).children().eq(index).addClass("plan");
                     }
-                    $("#booking-table-container").slideDown();
+
+                    $("#next-button").val("Reserveer kamer " + roomId + ", van " + answerObj.StartDate +
+                        " tot en met " + answerObj.EndDate + " (" + nightsBooked + " nachten)");
+                    $("#room-id-input").val(roomId);
+                    $("#start-date-input").val(answerObj.StartDate);
+                    $("#nights-input").val(nightsBooked);
+
+                    $("#next-button-container").slideDown();
                 } else {
                     alert("De geselecteerde datum kan niet worden ingeplant. De kamer is minstens een van de geselecteerde dagen gesloten of bezet.");
                 }
