@@ -150,7 +150,7 @@ namespace HotelWeb.Controllers
             HotelRoom thisRoom = roomRepo.Get(roomId);
 
             //is room open (not closed)
-            if ((thisRoom.CloseDate > thisRoom.OpenDate && end >= thisRoom.CloseDate) || start <= thisRoom.OpenDate)
+            if ((thisRoom.CloseDate > thisRoom.OpenDate && end >= thisRoom.CloseDate) || start <= thisRoom.OpenDate || start < DateTime.Now.Date)
             {
                 return false;
             }
@@ -168,6 +168,53 @@ namespace HotelWeb.Controllers
             }
 
             return true;
+        }
+
+        [HttpPost]
+        public ActionResult RegisterGuests(FormCollection planData)
+        {
+            bool correct = false;
+
+            DateTime startDate = new DateTime();
+            DateTime endDate = new DateTime();
+            int nights = -1;
+            int roomId = -1;
+
+            try
+            {
+                startDate = DateTime.Parse(planData["start-date-input"]);
+                nights = int.Parse(planData["nights-input"]);
+                roomId = int.Parse(planData["room-id-input"]);
+
+                //calculate enddate
+                endDate = startDate.AddDays(nights);
+            }
+            catch
+            {
+                return Json("Er trad een fout op tijdens het parsen van uw planning!");
+            }
+
+            //check room == free
+            correct = RoomIsFree(startDate, endDate, roomId);
+
+            if (correct)
+            {
+                BookingData data = new BookingData() {
+                    StartDate = startDate,
+                    EndDate = endDate,
+                    Nights = nights,
+                    RoomId = roomId
+                };
+                Session["BookingData"] = data;
+            }
+            
+            return View();
+        }
+        
+        public ActionResult SessionTest()
+        {
+            BookingData data = Session["BookingData"] as BookingData;
+            return Content(data.StartDate.ToString("yyyy-MM-dd"));
         }
     }
 }

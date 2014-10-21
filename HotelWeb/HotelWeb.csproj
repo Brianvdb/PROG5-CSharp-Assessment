@@ -122,6 +122,8 @@
     <Compile Include="Controllers\RoomController.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AvailabilityJson.cs" />
+    <Compile Include="Models\BookingData.cs" />
+    <Compile Include="Models\BookingGuest.cs" />
     <Compile Include="Models\RoomCandidatesJson.cs" />
     <Compile Include="Repositories\EntityAddressRepository.cs" />
     <Compile Include="Repositories\EntityBookingRepository.cs" />
@@ -166,6 +168,7 @@
     <Content Include="Content\Images\slides\slide4e.jpg" />
     <Content Include="Content\Images\slides\slide5e.jpg" />
     <Content Include="Content\Scripts\ajaxBooking.js" />
+    <Content Include="Content\Scripts\ajaxGuests.js" />
     <Content Include="Content\Scripts\jquery-2.1.1.js" />
     <Content Include="Content\Scripts\jquery-2.1.1.min.js" />
     <Content Include="Content\Scripts\jquery.slides.min.js" />
@@ -182,6 +185,7 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Scripts\jquery-2.1.0.min.map" />
+    <Content Include="Views\Book\RegisterGuests.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
