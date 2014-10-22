@@ -16,6 +16,8 @@ namespace DomainModel
 
         public virtual HotelRoom HotelRoom { get; set; }
 
+        public virtual Invoice Invoice { get; set; }
+
        
         public string Email { get; set; }
 

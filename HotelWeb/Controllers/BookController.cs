@@ -17,12 +17,18 @@ namespace HotelWeb.Controllers
     {
         private EntityHotelRoomRepository roomRepo;
         private EntityBookingRepository bookRepo;
+        private EntityAddressRepository addressRepo;
+        private EntityInvoiceRepository invoiceRepo;
+        private EntityGuestRepository guestRepo;
 
         public BookController()
         {
             DatabaseContext db = new DatabaseContext();
             roomRepo = new EntityHotelRoomRepository(db);
             bookRepo = new EntityBookingRepository(db);
+            addressRepo = new EntityAddressRepository(db);
+            invoiceRepo = new EntityInvoiceRepository(db);
+            guestRepo = new EntityGuestRepository(db);
         }
 
         [HttpPost]
@@ -278,6 +284,8 @@ namespace HotelWeb.Controllers
         {
             BookingData data = Session["BookingData"] as BookingData;
 
+            HotelRoom room = roomRepo.Get(data.RoomId);
+
             //assign invoice data
             string bankAccount = form["bankaccount"];
             string invoiceAdress = form["invoiceadress"];
@@ -290,10 +298,59 @@ namespace HotelWeb.Controllers
             //put data in database
             /**todo**/
 
+            Address address = new Address()
+            {
+                Street = data.Street,
+                HomeTown = data.HomeTown,
+                PostalCode = data.PostalCode
+            };
+
+            Invoice invoice = new Invoice()
+            {
+                BillingAddress = address, // FACTUUR ADRES, TODO???
+                TotalPrice = 400, // TODO!
+                BankAccountNumber = bankAccount
+            };
+
+            Booking booking = new Booking()
+            {
+                Guests = new List<Guest>(),
+                HotelRoom = room,
+                Email = mail,
+                GuestAddress = address, // NORMAAL GAST ADRES
+                StartDate = data.StartDate,
+                EndDate = data.EndDate
+            };
+
+            foreach (BookingGuest g in data.GuestList)
+            {
+                Guest guest = new Guest()
+                {
+                    FirstName = g.FirstName,
+                    LastName = g.LastName,
+                    BirthDate = g.BirthDate,
+                    Gender = g.Gender
+                };
+                booking.Guests.Add(guest);
+            }
+
+            foreach(Guest g in booking.Guests) {
+                guestRepo.Add(g);
+            }
+
+            addressRepo.Add(address);
+            invoiceRepo.Add(invoice);
+            bookRepo.Add(booking);
+
+            room.Bookings.Add(booking);
+            roomRepo.UpdateDatabase();
+            
+
             //remove session (niet echt nodig)
 
             //wat moet er gedaan worden na het ischrijven van de boeking
-            return View(data);
+            //return View(data);
+            return Content("U bent ingeschreven!");
         }
         
         public ActionResult SessionTest()

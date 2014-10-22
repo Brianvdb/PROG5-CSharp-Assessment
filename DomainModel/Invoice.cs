@@ -11,11 +11,11 @@ namespace DomainModel
     {
         [Key]
         public int InvoiceId { get; set; }
-        public virtual Booking Booking { get; set; }
+
         public virtual Address BillingAddress { get; set; }
 
         public float TotalPrice { get; set; }
 
-        public int BankAccountNumber { get; set; }
+        public string BankAccountNumber { get; set; }
     }
 }

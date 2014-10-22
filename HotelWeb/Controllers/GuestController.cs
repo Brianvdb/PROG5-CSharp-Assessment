@@ -13,22 +13,12 @@ namespace HotelWeb.Controllers
 {
     public class GuestController : Controller
     {
-        private EntityAddressRepository addressRepo;
-        private EntityBookingRepository bookingRepo;
         private EntityGuestRepository guestRepo;
-        private EntityHotelRoomPriceRepository roomPriceRepo;
-        private EntityHotelRoomRepository roomRepo;
-        private EntityInvoiceRepository invoiceRepo;
 
         public GuestController()
         {
             DatabaseContext db = new DatabaseContext();
-            this.addressRepo = new EntityAddressRepository(db);
-            this.bookingRepo = new EntityBookingRepository(db);
             this.guestRepo = new EntityGuestRepository(db);
-            this.roomPriceRepo = new EntityHotelRoomPriceRepository(db);
-            this.roomRepo = new EntityHotelRoomRepository(db);
-            this.invoiceRepo = new EntityInvoiceRepository(db);
 
         }
 
