@@ -20,6 +20,7 @@ namespace HotelWeb.Controllers
         private EntityAddressRepository addressRepo;
         private EntityInvoiceRepository invoiceRepo;
         private EntityGuestRepository guestRepo;
+        private EntityHotelRoomPriceRepository priceRepo;
 
         public BookController()
         {
@@ -29,6 +30,7 @@ namespace HotelWeb.Controllers
             addressRepo = new EntityAddressRepository(db);
             invoiceRepo = new EntityInvoiceRepository(db);
             guestRepo = new EntityGuestRepository(db);
+            priceRepo = new EntityHotelRoomPriceRepository(db);
         }
 
         [HttpPost]
@@ -271,11 +273,12 @@ namespace HotelWeb.Controllers
             data.PostalCode = form["postalcode"];
             data.HomeTown = form["hometown"];
 
+            if (data.Street == "" || data.PostalCode == "" || data.HomeTown == "")
+            {
+                return RedirectToRoute("AdressForm");
+            }
+
             Session["BookingData"] = data;
-
-            //check data for errors
-
-            //put data in database
 
             return View(data);
         }
@@ -297,7 +300,7 @@ namespace HotelWeb.Controllers
 
             //put data in database
             /**todo**/
-
+            /*
             Address address = new Address()
             {
                 Street = data.Street,
@@ -367,8 +370,48 @@ namespace HotelWeb.Controllers
             //remove session (niet echt nodig)
 
             //wat moet er gedaan worden na het ischrijven van de boeking
-            //return View(data);
+            //return View(data);*/
             return Content("U bent ingeschreven!");
+        }
+
+        [HttpPost]
+        public ActionResult GetPrices()
+        {
+            BookingData data = Session["BookingData"] as BookingData;
+
+            DateTime startDate = data.StartDate;
+            int roomId = data.RoomId;
+            double minPrice = roomRepo.Get(roomId).MinPrice;
+            int nights = data.Nights;
+
+            List<NightPriceJson> priceList = new List<NightPriceJson>();
+            IEnumerable<HotelRoomPrice> prices = priceRepo.GetAll().Where(price => price.StartDate < data.EndDate && price.EndDate >= data.StartDate);
+
+            for (int night = 0; night < nights; night++)
+            {
+                double altPrice = -1;
+                foreach (HotelRoomPrice sprice in prices)
+                {
+                    if (sprice.StartDate <= startDate.AddDays(night) && sprice.EndDate >= startDate.AddDays(night))
+                    {
+                        altPrice = sprice.Price;
+                    }
+                }
+
+                priceList.Add(new NightPriceJson() { date = startDate.AddDays(night).ToString("yyyy-MM-dd"), price = altPrice == -1 ? minPrice : altPrice });
+            }
+
+            //calculate total price
+            double totalPrice = 0;
+            foreach (NightPriceJson dayPrice in priceList)
+            {
+                totalPrice += dayPrice.price;
+            }
+
+            data.TotalPrice = totalPrice;
+            Session["BookingData"] = data;
+
+            return Json(priceList.ToJSON());
         }
         
         public ActionResult SessionTest()

@@ -17,6 +17,7 @@ namespace HotelWeb.Models
         public string PostalCode { get; set; }
         public string HomeTown { get; set; }
         public string EMail { get; set; }
+        public double TotalPrice { get; set; }
 
         public void resetGuests()
         {

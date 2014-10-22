@@ -124,6 +124,7 @@
     <Compile Include="Models\AvailabilityJson.cs" />
     <Compile Include="Models\BookingData.cs" />
     <Compile Include="Models\BookingGuest.cs" />
+    <Compile Include="Models\NightPriceJson.cs" />
     <Compile Include="Models\RoomCandidatesJson.cs" />
     <Compile Include="Models\PersonalInfo.cs" />
     <Compile Include="Repositories\EntityAddressRepository.cs" />

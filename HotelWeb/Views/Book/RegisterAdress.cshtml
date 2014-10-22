@@ -16,12 +16,36 @@ In totaal blijft u @Model.Nights nacht(en).
     @foreach (var name in @Model.GuestList)
     {
         <div>
-            @Html.Raw(@name.Gender == 0 ? "Dhr." : "Mvr.") @name.FirstName @name.LastName
+            -@Html.Raw(@name.Gender == 0 ? "Dhr." : "Mvr.") @name.FirstName @name.LastName
             <br />
             Geboren op @name.BirthDate.ToShortDateString()
-            <br /><br />
+            <br />
         </div>
     }
+</div>
+
+<h2>Factuur</h2>
+Prijzen:
+
+<div id="prices">
+    <table>
+        <thead>
+            <tr>
+                <th>Nacht datum</th>
+                <th>Kosten</th>
+            </tr>
+        </thead>
+        <tbody id="price-tbody">
+
+        </tbody>
+    </table>
+</div>
+
+<h2>Contactgegevens</h2>
+<div>
+    @Model.Street,<br />
+    @Model.PostalCode,<br />
+    @Model.HomeTown
 </div>
 
 @using (Html.BeginForm("RegisterBooking", "Book"))
@@ -44,14 +68,36 @@ In totaal blijft u @Model.Nights nacht(en).
         </div>
 
         <div class="editor-label">
-            @Html.Label("Factuur adress (laat leeg indien deze het zelfde als deze het zelfde is als het contact adres)?")
+            @Html.Label("Ander Factuuradres:    ")
         </div>
         <div class="editor-field">
-            <input type="text" name="invoiceadress" />
+            <input type="checkbox" name="invoiceadressisdifferent" id="different-invoice-adress-checkbox" />
+        </div>
+        <div id="different-invoice-adress" style="display: none">
+            <div class="editor-label">
+                @Html.Label("Adres en huisnummer")
+            </div>
+            <div class="editor-field">
+                <input type="text" name="adress" required="required" value="@Model.Street" />
+            </div>
+
+            <div class="editor-label">
+                @Html.Label("Postcode")
+            </div>
+            <div class="editor-field">
+                <input type="text" name="postalcode" required="required" value="@Model.PostalCode" />
+            </div>
+
+            <div class="editor-label">
+                @Html.Label("Woonplaats")
+            </div>
+            <div class="editor-field">
+                <input type="text" name="hometown" required="required" value="@Model.PostalCode" />
+            </div>
         </div>
 
         <p>
-            <input type="submit" value="Opslaan" />
+            <input type="submit" value="Boek Nu!" id="next-button" style="display:block" />
         </p>
     </fieldset>
 }
