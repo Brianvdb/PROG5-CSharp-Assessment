@@ -1,0 +1,54 @@
+﻿@model DomainModel.HotelRoom
+
+@{
+    ViewBag.Title = "Boekingen";
+}
+
+@if (Model == null)
+{
+    <p>De opgegeven kamer bestaat niet</p>
+}
+else if (Model.Bookings == null || Model.Bookings.Count == 0)
+{
+    <h1>Reserveraties Kamer @Model.Id</h1>
+    <p>Er zijn geen reservaties voor deze kamer.</p>
+}
+else
+{
+    <h1>Reservaties Kamer @Model.Id</h1>
+    <table>
+        <tr>
+            <th>startdatum</th>
+            <th>einddatum</th>
+            <th>totaalprijs</th>
+            <th>rekeningnummer</th>
+            <th>aantal gasten</th>
+            <th>e-mailadres</th>
+        </tr>
+
+        @foreach (var Booking in Model.Bookings)
+        {
+            <tr>
+                <td>
+                    @Html.Raw(Booking.StartDate.ToString("dd-MM-yyyy"))
+                </td>
+                <td>
+                    @Html.Raw(Booking.EndDate.ToString("dd-MM-yyyy"))
+                </td>
+                <td>
+                    @Html.Raw(Booking.Invoice.TotalPrice)
+                </td>
+                <td>
+                    @Html.Raw(Booking.Invoice.BankAccountNumber)
+                </td>
+                <td>
+                    @Html.Raw(Booking.Guests.Count)
+                </td>
+                <td>
+                    @Html.Raw(Booking.Email)
+                </td>
+            </tr>
+        }
+    </table>
+}
+@Html.ActionLink("Terug naar kamerbeheer", "Rooms")

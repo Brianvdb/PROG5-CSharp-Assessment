@@ -413,6 +413,11 @@ namespace HotelWeb.Controllers
             return View("Rooms", roomRepo.GetAll());
         }
 
+        public ActionResult RoomBookings(int id)
+        {
+            return View(roomRepo.Get(id));
+        }
+
         [HttpPost]
         public ActionResult AddRoomPrice(FormCollection form)
         {

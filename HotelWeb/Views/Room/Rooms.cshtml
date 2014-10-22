@@ -29,6 +29,9 @@
             sluitdatum
         </th>
         <th>
+            boekingen
+        </th>
+        <th>
             prijstarieven
         </th>
         <th>
@@ -57,7 +60,7 @@
                 string status = "Vrij";
                 for (int i = 0; i < item.Bookings.Count; i++)
                 {
-                    if (item.Bookings.ElementAt(i).StartDate >= DateTime.Now && item.Bookings.ElementAt(i).EndDate <= DateTime.Now)
+                    if (item.Bookings.ElementAt(i).StartDate >= DateTime.Today && DateTime.Today <= item.Bookings.ElementAt(i).EndDate)
                     {
                         status = "Bezet";
                         break;
@@ -71,10 +74,20 @@
             @Html.DisplayFor(modelItem => item.MinPrice)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.OpenDate)
+            @Html.Raw(item.OpenDate.ToString("dd-MM-yyyy"))
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CloseDate)
+            @if (item.OpenDate >= item.CloseDate)
+            {
+                @Html.Raw("-")
+            }
+            else
+            {
+               @Html.Raw(item.CloseDate.ToString("dd-MM-yyyy"))
+            }
+        </td>
+        <td>
+            @Html.ActionLink("Bekijken", "RoomBookings", new { id = item.Id })
         </td>
         <td>
             @Html.ActionLink("Bekijken", "RoomPrices", new { id = item.Id })

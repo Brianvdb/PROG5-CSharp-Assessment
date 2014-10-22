@@ -332,7 +332,8 @@ namespace HotelWeb.Controllers
                 Email = mail,
                 GuestAddress = address, // NORMAAL GAST ADRES
                 StartDate = data.StartDate,
-                EndDate = data.EndDate
+                EndDate = data.EndDate,
+                Invoice = invoice
             };
 
             foreach (BookingGuest g in data.GuestList)
