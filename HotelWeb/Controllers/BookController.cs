@@ -273,6 +273,28 @@ namespace HotelWeb.Controllers
 
             return View(data);
         }
+
+        public ActionResult RegisterBooking(FormCollection form)
+        {
+            BookingData data = Session["BookingData"] as BookingData;
+
+            //assign invoice data
+            string bankAccount = form["bankaccount"];
+            string invoiceAdress = form["invoiceadress"];
+            string mail = form["mail"];
+            /**Deze data hoeft niet in de sessie te worden gezet, maar kan direct in de database**/
+
+            //check data for errors
+            /**Daar ben ik nu mee bezig**/
+
+            //put data in database
+            /**todo**/
+
+            //remove session (niet echt nodig)
+
+            //wat moet er gedaan worden na het ischrijven van de boeking
+            return View(data);
+        }
         
         public ActionResult SessionTest()
         {
