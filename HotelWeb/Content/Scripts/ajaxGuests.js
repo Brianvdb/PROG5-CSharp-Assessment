@@ -42,20 +42,27 @@ $(document).ready(function () {
                 url: '/Book/RegisterAdress',
                 dataType: "json",
                 traditional: true,
+                async: false,
                 contentType: 'application/json',
                 data: JSON.stringify(guestObject),
                 success: function (data) {
+                    var dataObj = jQuery.parseJSON(data);
+                    if (dataObj.error != undefined) {
+                        alert(dataObj.error);
+                        allCorrect = false;
+                    }
                     console.log(data);
                 },
                 error: function (data) {
                     console.log(data);
                     alert("failure");
+                    allCorrect = false;
                 }
             });  
         } else {
             return false;
         }
-        return true;
+        return allCorrect;
     });
 });
 

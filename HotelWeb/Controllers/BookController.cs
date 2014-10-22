@@ -233,7 +233,15 @@ namespace HotelWeb.Controllers
             data.resetGuests();
             for (int x = 0; x < adressCount; x++)
             {
-                data.GuestList.Add(new BookingGuest() { FirstName = input[x].firstName, LastName = input[x].lastName, BirthDate = DateTime.Parse(input[x].birthDate), Gender = input[x].sex == "male" ? 0 : 1 });
+                try
+                {
+                    data.GuestList.Add(new BookingGuest() { FirstName = input[x].firstName, LastName = input[x].lastName, BirthDate = DateTime.Parse(input[x].birthDate), Gender = input[x].sex == "male" ? 0 : 1 });
+
+                }
+                catch
+                {
+                    return Json("{\"error\":\"Form velden zijn vergeten\"}");
+                }
             }
 
             Session["BookingData"] = data;
