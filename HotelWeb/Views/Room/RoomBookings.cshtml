@@ -24,6 +24,8 @@ else
             <th>rekeningnummer</th>
             <th>aantal gasten</th>
             <th>e-mailadres</th>
+            <th>thuisadres</th>
+            <th>factuuradres</th>
         </tr>
 
         @foreach (var Booking in Model.Bookings)
@@ -46,6 +48,12 @@ else
                 </td>
                 <td>
                     @Html.Raw(Booking.Email)
+                </td>
+                <td>
+                    @Html.Raw(Booking.GuestAddress.Street + ", " + Booking.GuestAddress.PostalCode + ", " + Booking.GuestAddress.HomeTown)
+                </td>
+                <td>
+                    @Html.Raw(Booking.Invoice.BillingAddress.Street + ", " + Booking.Invoice.BillingAddress.PostalCode + ", " + Booking.Invoice.BillingAddress.HomeTown)
                 </td>
             </tr>
         }
