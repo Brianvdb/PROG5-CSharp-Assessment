@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Contact Info";
+    ViewBag.Description = "Contact Informatie";
+}
+
+U bent nu bijna klaar! Vuldt u hieronder a.u.b. uw adres en contactgegevens in.
+
+@using (Html.BeginForm("RegisterAdress", "Book"))
+{
+
+    <fieldset>
+        <legend>@Html.Raw("Contact Informatie")</legend>
+
+        <div class="editor-label">
+            @Html.Label("Adres en huisnummer")
+        </div>
+        <div class="editor-field">
+            <input type="text" name="adress" required="required" />
+        </div>
+
+        <div class="editor-label">
+            @Html.Label("Postcode")
+        </div>
+        <div class="editor-field">
+            <input type="text" name="postalcode" required="required" />
+        </div>
+
+        <div class="editor-label">
+            @Html.Label("Woonplaats")
+        </div>
+        <div class="editor-field">
+            <input type="text" name="hometown" required="required" />
+        </div>
+
+        <p>
+            <input type="submit" value="Opslaan" />
+        </p>
+    </fieldset>
+}

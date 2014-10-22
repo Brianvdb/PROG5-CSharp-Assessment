@@ -39,13 +39,15 @@ $(document).ready(function () {
         if (allCorrect === true) {
             $.ajax({
                 type: "POST",
-                url: '/Book/RegisterAdress',
+                url: '/Book/RegisterGuestInfo',
                 dataType: "json",
                 traditional: true,
                 async: false,
                 contentType: 'application/json',
                 data: JSON.stringify(guestObject),
                 success: function (data) {
+                    console.log(data);
+                    
                     var dataObj = jQuery.parseJSON(data);
                     if (dataObj.error != undefined) {
                         alert(dataObj.error);

@@ -1,0 +1,37 @@
+﻿@model HotelWeb.Models.BookingData
+
+@{
+    ViewBag.Title = "Boeking";
+    ViewBag.Description = "Uw boeking";
+}
+
+<script src="~/Content/Scripts/ajaxInvoice.js"></script>
+
+<fieldset>
+    <legend>Uw factuur informatie</legend>
+
+    <div class="editor-label">
+        @Html.Label("Uw rekeningnummer:")
+    </div>
+    <div class="editor-field">
+        <input type="text" name="adress" required="required" />
+    </div>
+
+    <div class="editor-label">
+        @Html.Label("Uw email:")
+    </div>
+    <div class="editor-field">
+        <input type="email" name="postalcode" required="required" />
+    </div>
+
+    <div class="editor-label">
+        @Html.Label("Factuur adress (laat leeg indien deze het zelfde als deze het zelfde is als het contact adres)?")
+    </div>
+    <div class="editor-field">
+        <input type="text" name="bookingadress" />
+    </div>
+
+    <p>
+        <input type="submit" value="Opslaan" />
+    </p>
+</fieldset>

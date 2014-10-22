@@ -219,14 +219,14 @@ namespace HotelWeb.Controllers
         }
 
         [HttpPost]
-        public ActionResult RegisterAdress(SimpleAdress[] input)
+        public ActionResult RegisterGuestInfo(PersonalInfo[] input)
         {
             BookingData data = Session["BookingData"] as BookingData;
-            int adressCount = data.Nights;
+            int adressCount = input.Length;
 
-            if (adressCount > roomRepo.Get(data.RoomId).NumberOfPersons)
+            if (adressCount >= roomRepo.Get(data.RoomId).NumberOfPersons)
             {
-                return Json("{\"error\":\"Er zijn meer klanten opgegeven dan is toegestaan voor de kamer\"}");
+                return Json("{\"error\":\"Er zijn meer klanten opgegeven dan is toegestaan voor de kamer " + data.RoomId + " m " + roomRepo.Get(data.RoomId).NumberOfPersons + "\"}");
             }
 
             //make sure the list is empty
@@ -247,6 +247,26 @@ namespace HotelWeb.Controllers
             Session["BookingData"] = data;
 
             return Json("{}");
+        }
+
+        [HttpPost]
+        public ActionResult AdressForm()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult RegisterAdress(FormCollection form)
+        {
+            BookingData data = Session["BookingData"] as BookingData;
+
+            data.Street = form["adress"];
+            data.PostalCode = form["postalcode"];
+            data.HomeTown = form["hometown"];
+
+            Session["BookingData"] = data;
+
+            return View(data);
         }
         
         public ActionResult SessionTest()
