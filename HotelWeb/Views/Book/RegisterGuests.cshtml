@@ -3,7 +3,16 @@
     ViewBag.Description = "Registratie Gasten";
 }
 
-
 <script src="~/Content/Scripts/ajaxGuests.js" type="text/javascript"></script>
+U heeft de hotelboeking nu ingepant van @ViewBag.StartDate tot @ViewBag.EndDate in kamer @ViewBag.RoomId.<br />
+We vragen u nu de persoonsgegeven van alle personen in te vullen die gebruik gaan maken van de kamer.
+<div id="customer-container" data-maxPersons="@ViewBag.MaxPersons"></div>
+<input type="button" value="Meer Personen Toevoegen" id="add-person-button"/>
+<br />
 
-<div id="customer-container"></div>
+<p class="editor-field">
+    Let op dat alle velden goed zijn ingevuld en vergeet a.u.b. geen velden!
+</p>
+<form action="~/Book/GuestTest" id="guest-form" method="post">
+    <input type="submit" value="Verstuur informatie en ga verder naar contactinformatie" id="next-button" style="display:block" />
+</form>

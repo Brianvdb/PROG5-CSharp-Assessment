@@ -197,6 +197,7 @@ namespace HotelWeb.Controllers
             //check room == free
             correct = RoomIsFree(startDate, endDate, roomId);
 
+            //register the information that is available after the planning has been sent
             if (correct)
             {
                 BookingData data = new BookingData() {
@@ -208,13 +209,48 @@ namespace HotelWeb.Controllers
                 Session["BookingData"] = data;
             }
             
+            //return the view 
+            ViewBag.StartDate = startDate.ToString("yyyy-MM-dd");
+            ViewBag.EndDate = endDate.ToString("yyyy-MM-dd");
+            ViewBag.RoomId = roomId;
+            ViewBag.MaxPersons = roomRepo.Get(roomId).NumberOfPersons;
+
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult RegisterAdress(SimpleAdress[] input)
+        {
+            BookingData data = Session["BookingData"] as BookingData;
+            int adressCount = data.Nights;
+
+            if (adressCount > roomRepo.Get(data.RoomId).NumberOfPersons)
+            {
+                return Json("{\"error\":\"Er zijn meer klanten opgegeven dan is toegestaan voor de kamer\"}");
+            }
+
+            //make sure the list is empty
+            data.resetGuests();
+            for (int x = 0; x < adressCount; x++)
+            {
+                data.GuestList.Add(new BookingGuest() { FirstName = input[x].firstName, LastName = input[x].lastName, BirthDate = DateTime.Parse(input[x].birthDate), Gender = input[x].sex == "male" ? 0 : 1 });
+            }
+
+            Session["BookingData"] = data;
+
+            return Json("{}");
         }
         
         public ActionResult SessionTest()
         {
             BookingData data = Session["BookingData"] as BookingData;
             return Content(data.StartDate.ToString("yyyy-MM-dd"));
+        }
+
+        public ActionResult GuestTest()
+        {
+            BookingData data = Session["BookingData"] as BookingData;
+            return Content(data.GuestList[0].FirstName);
         }
     }
 }
