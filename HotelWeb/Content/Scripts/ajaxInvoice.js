@@ -19,7 +19,7 @@ $(document).ready(function () {
             var totalPrice = 0;
             dataObj.forEach(function (e) {
                 totalPrice += e.price
-                priceList += "<tr><td>" + e.date + "</td><td>&euro;" + e.price + "</td></tr>";
+                priceList += "<tr><td>" + e.date + "</td><td>&euro;" + e.price.toFixed(2) + "</td></tr>";
             });
             priceList += "<tr style=\"border-top: 2px solid black\"><td>Totaalprijs:</td><td>&euro;" + totalPrice.toFixed(2) + "</td></tr>"
             $("#price-tbody").append(priceList);

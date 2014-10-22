@@ -291,16 +291,19 @@ namespace HotelWeb.Controllers
 
             //assign invoice data
             string bankAccount = form["bankaccount"];
-            string invoiceAdress = form["invoiceadress"];
             string mail = form["mail"];
-            /**Deze data hoeft niet in de sessie te worden gezet, maar kan direct in de database**/
 
-            //check data for errors
-            /**Daar ben ik nu mee bezig**/
+            string invoiceAdress = form["adress"];
+            string invoicePostalcode = form["postalcode"];
+            string invoiceHometown = form["hometown"];
 
-            //put data in database
-            /**todo**/
-            /*
+            if (mail == "" || bankAccount == "" || invoiceAdress == "" || invoicePostalcode == "" || invoiceHometown == "" || data.TotalPrice <= 0)
+            {
+
+                ViewBag.Error = "Helaas zijn niet alle gegevens aanwezig. De boeking is mislukt.";
+                return View();
+            }
+
             Address address = new Address()
             {
                 Street = data.Street,
@@ -308,23 +311,25 @@ namespace HotelWeb.Controllers
                 PostalCode = data.PostalCode
             };
 
-            // TODO:: if(factuurAdres == leeg) {
-            // Address billingAddres = address
-            // } else {
-            //  // Zie code hieronder ( Adress billingAddress = new Address() { } )
-            // }
-
-            Address billingAddress = new Address()
+            Address billingAddress;
+            if (invoiceAdress == data.Street && invoicePostalcode == data.PostalCode && invoiceHometown == data.HomeTown)
             {
-                Street = "dummy",
-                HomeTown = "dummy",
-                PostalCode = "dummy"
-            };
+                billingAddress = address;
+            }
+            else
+            {
+                billingAddress = new Address()
+                {
+                    Street = invoiceAdress,
+                    HomeTown = invoiceHometown,
+                    PostalCode = invoicePostalcode
+                };
+            }
 
             Invoice invoice = new Invoice()
             {
                 BillingAddress = billingAddress,
-                TotalPrice = 400, // TODO!
+                TotalPrice = (float)data.TotalPrice, 
                 BankAccountNumber = bankAccount
             };
 
@@ -364,14 +369,22 @@ namespace HotelWeb.Controllers
             bookRepo.Add(booking);
 
             room.Bookings.Add(booking);
-            roomRepo.UpdateDatabase();
-            
 
-            //remove session (niet echt nodig)
+            try
+            {
+                roomRepo.UpdateDatabase();
+                ViewBag.Succes = "De booking is opgeslagen!";
+            }
+            catch
+            {
+                ViewBag.Error = "Kon de booking niet opslaan. Booking mislukt";
+            }
 
-            //wat moet er gedaan worden na het ischrijven van de boeking
-            //return View(data);*/
-            return Content("U bent ingeschreven!");
+
+            Session["BookingData"] = null;
+
+            //return View(data);
+            return View();
         }
 
         [HttpPost]
