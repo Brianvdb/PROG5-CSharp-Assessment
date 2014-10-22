@@ -7,31 +7,51 @@
 
 <script src="~/Content/Scripts/ajaxInvoice.js"></script>
 
-<fieldset>
-    <legend>Uw factuur informatie</legend>
+<h2>Boekingsinformatie</h2>
+U heeft kamer @Model.RoomId geboekt van @Model.StartDate.ToShortDateString() tot @Model.EndDate.ToShortDateString().
+In totaal blijft u @Model.Nights nacht(en).
 
-    <div class="editor-label">
-        @Html.Label("Uw rekeningnummer:")
-    </div>
-    <div class="editor-field">
-        <input type="text" name="adress" required="required" />
-    </div>
+<h2>Personen</h2>
+<div id="person-container">    
+    @foreach (var name in @Model.GuestList)
+    {
+        <div>
+            @Html.Raw(@name.Gender == 0 ? "Dhr." : "Mvr.") @name.FirstName @name.LastName
+            <br />
+            Geboren op @name.BirthDate.ToShortDateString()
+            <br /><br />
+        </div>
+    }
+</div>
 
-    <div class="editor-label">
-        @Html.Label("Uw email:")
-    </div>
-    <div class="editor-field">
-        <input type="email" name="postalcode" required="required" />
-    </div>
+@using (Html.BeginForm("RegisterBooking", "Book"))
+{
+    <fieldset>
+        <legend>Uw factuur informatie</legend>
 
-    <div class="editor-label">
-        @Html.Label("Factuur adress (laat leeg indien deze het zelfde als deze het zelfde is als het contact adres)?")
-    </div>
-    <div class="editor-field">
-        <input type="text" name="bookingadress" />
-    </div>
+        <div class="editor-label">
+            @Html.Label("Uw rekeningnummer:")
+        </div>
+        <div class="editor-field">
+            <input type="text" name="adress" required="required" />
+        </div>
 
-    <p>
-        <input type="submit" value="Opslaan" />
-    </p>
-</fieldset>
+        <div class="editor-label">
+            @Html.Label("Uw email:")
+        </div>
+        <div class="editor-field">
+            <input type="email" name="postalcode" required="required" />
+        </div>
+
+        <div class="editor-label">
+            @Html.Label("Factuur adress (laat leeg indien deze het zelfde als deze het zelfde is als het contact adres)?")
+        </div>
+        <div class="editor-field">
+            <input type="text" name="bookingadress" />
+        </div>
+
+        <p>
+            <input type="submit" value="Opslaan" />
+        </p>
+    </fieldset>
+}
