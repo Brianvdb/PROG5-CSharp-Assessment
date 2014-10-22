@@ -398,7 +398,7 @@ namespace HotelWeb.Controllers
             int nights = data.Nights;
 
             List<NightPriceJson> priceList = new List<NightPriceJson>();
-            IEnumerable<HotelRoomPrice> prices = priceRepo.GetAll().Where(price => price.StartDate < data.EndDate && price.EndDate >= data.StartDate);
+            IEnumerable<HotelRoomPrice> prices = roomRepo.Get(roomId).RoomPrices.Where(price => price.StartDate < data.EndDate && price.EndDate >= data.StartDate);
 
             for (int night = 0; night < nights; night++)
             {
