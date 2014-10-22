@@ -305,9 +305,22 @@ namespace HotelWeb.Controllers
                 PostalCode = data.PostalCode
             };
 
+            // TODO:: if(factuurAdres == leeg) {
+            // Address billingAddres = address
+            // } else {
+            //  // Zie code hieronder ( Adress billingAddress = new Address() { } )
+            // }
+
+            Address billingAddress = new Address()
+            {
+                Street = "dummy",
+                HomeTown = "dummy",
+                PostalCode = "dummy"
+            };
+
             Invoice invoice = new Invoice()
             {
-                BillingAddress = address, // FACTUUR ADRES, TODO???
+                BillingAddress = billingAddress,
                 TotalPrice = 400, // TODO!
                 BankAccountNumber = bankAccount
             };
@@ -339,6 +352,10 @@ namespace HotelWeb.Controllers
             }
 
             addressRepo.Add(address);
+            if (billingAddress != address)
+            {
+                addressRepo.Add(billingAddress);
+            }
             invoiceRepo.Add(invoice);
             bookRepo.Add(booking);
 
